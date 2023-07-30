@@ -10,12 +10,12 @@ const PropertyCard = ({ property }) => {
   return (
     <div key={property._id} className={classes.property}>
       <Link to={`/propertyDetail/${property._id}`} className={classes.imgContainer}>
-        <img src={`http://localhost:5000/images/${property?.img}`} alt="" />
+        <img src={`https://romax-real-estate.onrender.com/images/${property?.img}`} alt="" />
       </Link>
       <div className={classes.details}>
         <div className={classes.priceAndOwner}>
           <span className={classes.price}>₦ {property.price}</span>
-          <img src={ownerProfileImg ? `http://localhost:5000/images/${ownerProfileImg}` : person} alt="" className={classes.owner} />
+          <img src={ownerProfileImg ? `https://romax-real-estate.onrender.com/images/${ownerProfileImg}` : person} alt="" className={classes.owner} />
         </div>
         <div className={classes.moreDetails}>
           <span>{property.beds} <FaBed className={classes.icon} /></span>

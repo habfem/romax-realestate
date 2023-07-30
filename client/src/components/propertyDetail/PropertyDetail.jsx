@@ -18,9 +18,9 @@ const PropertyDetail = () => {
   const formRef = useRef();
 
 
-  const serviceId = "service_tcrix4g"
-  const templateeId = "template_fhupds4"
-  const publickey = "MZyDO3Q85tOZgCPig"
+  const serviceId = "service_xxxxxx"
+  const templateeId = "template_xxxxxxx"
+  const publickey = "xxxxxxxxxxxxxxxxxxxxx"
 
   const ownerEmail = "habeebmustapha96@gmail.com"
 
@@ -58,7 +58,7 @@ const PropertyDetail = () => {
     <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.left}>
-          {<img src={`http://localhost:5000/images/${propertyDetail?.img}`} alt='' />}
+          {<img src={`https://romax-real-estate.onrender.com/images/${propertyDetail?.img}`} alt='' />}
         </div>
         <div className={classes.right}>
           <h3 className={classes.title}>
@@ -72,7 +72,7 @@ const PropertyDetail = () => {
             <div className={classes.priceAndOwner}>
               <span className={classes.price}><span>Price: ₦</span>{`${propertyDetail?.price}`}</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                Owner:  <img src={`http://localhost:5000/images/${propertyDetail?.currentOwner?.profileImg}`} className={classes.owner} alt='' />
+                Owner:  <img src={`https://romax-real-estate.onrender.com/images/${propertyDetail?.currentOwner?.profileImg}`} className={classes.owner} alt='' />
               </span>
             </div>
             <div className={classes.moreDetails}>
