@@ -18,9 +18,9 @@ const PropertyDetail = () => {
   const formRef = useRef();
 
 
-  const serviceId = "service_xxxxxx"
-  const templateeId = "template_xxxxxxx"
-  const publickey = "xxxxxxxxxxxxxxxxxxxxx"
+  const serviceId = "service_tcrix4g"
+  const templateeId = "template_fhupds4"
+  const publickey = "MZyDO3Q85tOZgCPig"
 
   const ownerEmail = "habeebmustapha96@gmail.com"
 

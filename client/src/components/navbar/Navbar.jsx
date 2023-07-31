@@ -79,7 +79,7 @@ const Navbar = () => {
           <li className={classes.listItem}>Contacts</li>
         </ul>
         <div className={classes.right}>
-          {!user ?
+          {/* {!user ?
             <>
               <Link to="/signup">Sign up</Link>
               <Link to="/signin">Sign in</Link>
@@ -90,7 +90,21 @@ const Navbar = () => {
               <span onClick={handleLogout} className={classes.logoutBtn}>Logout</span>
               <Link onClick={() => setShowForm(true)} className={classes.list}>List property</Link>
             </>
-          }
+          } */}
+          {user ? (
+            <>
+              <span>Hi, {user.username}</span>
+              <span onClick={handleLogout} className={classes.logoutBtn}>Logout</span>
+            </>
+          ) : (
+            <>
+              <Link to="/signup">Sign up</Link>
+              <Link to="/signin">Sign in</Link>
+            </>
+          )}
+          {user && user.isAdmin && (
+            <Link onClick={() => setShowForm(true)} className={classes.list}>List property</Link>
+          )}
         </div>
       </div>
       {
