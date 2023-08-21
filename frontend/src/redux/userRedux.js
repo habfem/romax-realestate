@@ -22,8 +22,19 @@ const userSlice = createSlice({
     logout: (state) => {
       state.currentUser = null;
     },
+    registerStart: (state) => {
+      state.isRegistering = true;
+    },
+    registerSuccess: (state) => {
+      state.isRegistering = false;
+      state.error = false;
+    },
+    registerFailure: (state) => {
+      state.isRegistering = false;
+      state.error = true;
+    },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } = userSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, registerStart, registerSuccess, registerFailure } = userSlice.actions;
 export default userSlice.reducer;
