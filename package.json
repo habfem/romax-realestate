@@ -21,6 +21,9 @@
     "redux-persist": "^6.0.0",
     "stripe": "^11.17.0"
   },
+  "engines": {
+    "node": ">=14.20.1"
+  },
   "scripts": {
     "start": "node api/index",
     "server": "nodemon api/index"
