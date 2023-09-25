@@ -1,0 +1,32 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "e-commerce app",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@reduxjs/toolkit": "^1.9.5",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.4.0",
+    "nodemon": "^2.0.21",
+    "paystack": "^2.0.1",
+    "react-redux": "^8.1.2",
+    "react-router": "^6.9.0",
+    "react-router-dom": "^6.9.0",
+    "react-stripe-checkout": "^2.6.3",
+    "redux-persist": "^6.0.0",
+    "stripe": "^11.17.0",
+    "uuid": "^9.0.1"
+  },
+  "scripts": {
+    "start": "node api/index",
+    "server": "nodemon api/index"
+  },
+  "author": "Habeeb Mustapha M. O.",
+  "license": "ISC"
+}
