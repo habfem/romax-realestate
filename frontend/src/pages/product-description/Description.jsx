@@ -4,7 +4,6 @@ import {
   ListItemText,
   Stack,
   Typography,
-  ListSubheader,
 } from "@mui/material";
 const Description = ({ desc, features }) => {
   return (

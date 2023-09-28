@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Tabs, Tab, Box, Stack, Typography } from "@mui/material";
 import Description from "./Description";
-import Reviews from "./Reviews";
+//import Reviews from "./Reviews";
 
 const TabPanel = ({ children, value, index }) => (
   <div
@@ -14,7 +14,7 @@ const TabPanel = ({ children, value, index }) => (
   </div>
 );
 
-const TabComponent = () => {
+const TabComponent = ({ product }) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -38,29 +38,29 @@ const TabComponent = () => {
             }}
           />
           <Tab
-            label="Payment Plan"
+            label="Contact Info"
             sx={{
               textTransform: "none",
               fontSize: "16px",
             }}
           />
-          <Tab
+          {/* <Tab
             label="Property Reviews"
             sx={{
               textTransform: "none",
               fontSize: "16px",
             }}
-          />
+          /> */}
         </Tabs>
       </Box>
 
       <TabPanel value={selectedTab} index={0}>
-        <Description />
+        <Description desc={product.desc} features={product.features} />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
         <Stack spacing={1.5}>
           <Typography variant="body2">
-            50% Initial deposit balance spread within 6 months.
+            Contact to make enquiries about the estate
           </Typography>
 
           <Stack>
@@ -74,9 +74,9 @@ const TabComponent = () => {
           </Stack>
         </Stack>
       </TabPanel>
-      <TabPanel value={selectedTab} index={2}>
+      {/* <TabPanel value={selectedTab} index={2}>
         <Reviews />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
   );
 };

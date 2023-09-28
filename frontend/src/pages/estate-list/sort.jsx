@@ -11,13 +11,13 @@ import {
 import FilterListIcon from "@mui/icons-material/FilterList";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const Sort = ({openDrawer}) => {
+const Sort = ({ openDrawer, sort, setSort }) => {
   const isNonMobile = useMediaQuery("(min-width:968px)");
 
   return (
     <Box
       bgcolor="white"
-      p={{ xs:1.2, sm:2}}
+      p={{ xs: 1.2, sm: 2 }}
       borderRadius="5px"
       sx={{
         boxShadow: "0px 1px 3px rgba(3, 0, 71, 0.09)",
@@ -25,42 +25,50 @@ const Sort = ({openDrawer}) => {
     >
       {" "}
       <Stack
-        direction={"row" }
+        direction={"row"}
         justifyContent="space-between"
         alignItems="center"
       >
-        <Typography variant="h6" >
+        <Typography variant="h6">
           {" "}
-          447 <span style={{
-            fontSize:"14px",
-            fontWeight: "400"
-
-          }}>results</span>{" "}
-        </Typography>
-       
-       <Stack direction="row" spacing={1} alignItems="center">
-       <Stack direction="row" spacing={1} alignItems="center">
-          <Typography display={{xs:"none", sm:"block"}}>Sort By:</Typography>
-          <FormControl
-            size="small"
-            sx={{
-              flex: 1,
+          447{" "}
+          <span
+            style={{
+              fontSize: "14px",
+              fontWeight: "400",
             }}
           >
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value="highest-price"
-              
+            results
+          </span>{" "}
+        </Typography>
+
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography display={{ xs: "none", sm: "block" }}>
+              Sort By:
+            </Typography>
+            <FormControl
+              size="small"
+              sx={{
+                flex: 1,
+              }}
             >
-              <MenuItem value={"highest-price"}>Highest Price</MenuItem>
-              <MenuItem value={"lowest-price"}>Lowest Price</MenuItem>
-              <MenuItem value={"newest-price"}>Newest Price</MenuItem>
-              <MenuItem value={"oldest-price"}>Oldest Price</MenuItem>
-            </Select>
-          </FormControl>
-        </Stack>
-        <IconButton
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={sort}
+                onChange={(e) => {
+                  setSort(e.target.value);
+                }}
+              >
+                <MenuItem value={"highest"}>Highest Price</MenuItem>
+                <MenuItem value={"lowest"}>Lowest Price</MenuItem>
+                <MenuItem value={"newest"}>Newest Price</MenuItem>
+                <MenuItem value={"oldest"}>Oldest Price</MenuItem>
+              </Select>
+            </FormControl>
+          </Stack>
+          <IconButton
             onClick={openDrawer}
             sx={{
               display: isNonMobile ? "none" : "inline-flex",
@@ -68,9 +76,7 @@ const Sort = ({openDrawer}) => {
           >
             <FilterListIcon />
           </IconButton>
-
-       </Stack>
-        
+        </Stack>
       </Stack>
     </Box>
   );

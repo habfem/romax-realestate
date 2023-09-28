@@ -4,7 +4,6 @@ import {
   Box,
   Grid,
   Stack,
-  Typography,
   Divider,
   styled,
   Drawer,
@@ -48,15 +47,11 @@ const ProductListing = () => {
 
   useEffect(() => {
     const getProducts = async () => {
-      const queryParams = `${sort ? `sort=${sort}&` : ""}${
-        minPrice ? `minPrice=${minPrice}&` : ""
-      }${maxPrice ? `maxPrice=${maxPrice}&` : ""}${
-        minBed ? `minBed=${minBed}&` : ""
-      }${maxBed ? `maxBed=${maxBed}&` : ""}${
-        minCar ? `minCar=${minCar}&` : ""
-      }${maxCar ? `maxCar=${maxCar}&` : ""}${
-        selectedTypes ? `types=${selectedTypes.join(",")}&` : ""
-      }`;
+      const queryParams = `${sort ? `sort=${sort}&` : ""}${minPrice ? `minPrice=${minPrice}&` : ""
+        }${maxPrice ? `maxPrice=${maxPrice}&` : ""}${minBed ? `minBed=${minBed}&` : ""
+        }${maxBed ? `maxBed=${maxBed}&` : ""}${minCar ? `minCar=${minCar}&` : ""
+        }${maxCar ? `maxCar=${maxCar}&` : ""}${selectedTypes ? `types=${selectedTypes.join(",")}&` : ""
+        }`;
       try {
         const res = await publicRequest.get(`/products?${queryParams}`);
         setProducts(res.data);

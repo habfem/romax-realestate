@@ -8,7 +8,7 @@ const Timelines = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/timeline')
+    axios.get('https://romax-real-estate.onrender.com/api/timeline')
       .then((response) => {
         setTimelines(response.data);
         setLoading(false)

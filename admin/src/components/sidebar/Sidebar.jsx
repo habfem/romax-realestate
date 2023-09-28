@@ -5,7 +5,8 @@ import {
   TrendingUp,
   PermIdentity,
   Storefront,
-  AttachMoney,
+  TimelineOutlined,
+  HouseOutlined,
   BarChart,
   MailOutline,
   DynamicFeed,
@@ -54,19 +55,31 @@ export default function Sidebar() {
                 Products
               </li>
             </Link>
+            <Link to="/estates" className="link">
+              <li className="sidebarListItem">
+                <HouseOutlined className="sidebarIcon" />
+                Estates
+              </li>
+            </Link>
             <Link to="/bookings" className="link">
               <li className="sidebarListItem">
                 <BookmarkBorderOutlined className="sidebarIcon" />
                 Bookings
               </li>
             </Link>
+            <Link to="/timelines" className="link">
+              <li className="sidebarListItem">
+                <TimelineOutlined className="sidebarIcon" />
+                Timelines
+              </li>
+            </Link>
             <Link to="/faqs" className="link">
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Faqs
-            </li>
-              </Link>
-            
+              <li className="sidebarListItem">
+                <BarChart className="sidebarIcon" />
+                Faqs
+              </li>
+            </Link>
+
           </ul>
         </div>
         <div className="sidebarMenu">

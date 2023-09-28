@@ -2,8 +2,10 @@ import Navbar from "../../components/Navbar";
 import Announcement from "../../components/Announcement";
 import Newsletter from "../../components/Newsletter";
 import Footer from "../../components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
+import { publicRequest } from "../../requestMethods";
+
 import {
   Box,
   Stack,
@@ -17,43 +19,36 @@ import {
 } from "@mui/material";
 import { features } from "../../data";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+//import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Tab from "./Tab";
-import Carousel from "./Carousel";
-import { product } from "../user-dashboard/data";
-const Product = () => {
-  // const location = useLocation();
-  // const id = location.pathname.split("/")[2];
+import Carousel from "./ProdDescCarousel";
+import { useLocation, useNavigate } from "react-router";
+//import { userRequest } from "../../requestMethods";
+//import makeToast from "../../toaster";
+
+const Estate = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const id = location.pathname.split("/")[2];
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const [loading, setLoading] = useState(false);
-  // const dispatch = useDispatch();
-  // const user = useSelector(state => state.user.currentUser)
+  const [loading, setLoading] = useState(true);
+  const [product, setProduct] = useState({});
+  //const [toggle, setToggle] = useState(false);
 
-  // useEffect(() => {
-  //   const getProduct = async () => {
-  //     try {
-  //       const res = await publicRequest.get("/products/find/" + id);
-  //       setProduct(res.data);
-  //       setLoading(false)
-  //     } catch (error) {
-  //       setLoading(false)
-  //     }
-  //   }
-  //   getProduct();
-  // }, [id]);
+  useEffect(() => {
+    const getEstate = async () => {
+      try {
+        const res = await publicRequest.get(`/estate/find/${id}`);
+        setProduct(res.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    };
+    getEstate();
+  }, [id]);
 
-  /* const handleQuantity = (type) => {
-    if (type === "dec") {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1);
-    }
-  }; */
-
-  // const handleClick = () => {
-  //   dispatch(addProduct({ ...product, color, size }));
-  // };
   return (
     <Box>
       <Announcement />
@@ -72,17 +67,18 @@ const Product = () => {
                   gap: 1,
                 }}
               >
-                <Carousel images={product.images} />
+                <Carousel images={product?.img} />
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={2}>
                   <Typography variant="h5">{product?.title}</Typography>
+                  <Typography variant="subtitle1">{product?.categories}</Typography>
 
-                  <Typography variant="h5" color="teal">
-                    {`₦ ${product.price.toLocaleString()}`}
-                  </Typography>
+                  {/* <Typography variant="h5" color="teal">
+                    {`₦ ${product?.price?.toLocaleString()}`}
+                  </Typography> */}
 
-                  <Stack direction="row" spacing={5}>
+                  {/* <Stack direction="row" spacing={5}>
                     <Stack spacing={0.3}>
                       <Typography variant="subtitle1">Location: </Typography>
                       <Typography variant="subtitle1">Category: </Typography>
@@ -111,13 +107,12 @@ const Product = () => {
                       <Typography variant="subtitle2" color="text.secondary">
                         {product?.category}
                       </Typography>
-                      {product?.stock > 0 && (
-                        <Typography variant="subtitle2" color="text.secondary">
-                          Yes
-                        </Typography>
-                      )}
+
+                      <Typography variant="subtitle2" color="text.secondary">
+                        {product?.inStock ? "Yes" : "No"}
+                      </Typography>
                     </Stack>
-                  </Stack>
+                  </Stack> */}
                   <Typography variant="subtitle2" color="text.secondary">
                     {product?.desc}
                   </Typography>
@@ -135,6 +130,9 @@ const Product = () => {
                   >
                     <Button
                       disabled={product?.stock <= 0}
+                      onClick={() => {
+                        navigate(`/booking/${product._id}`);
+                      }}
                       sx={{
                         textTransform: "none",
                         bgcolor: "teal",
@@ -155,23 +153,6 @@ const Product = () => {
                       <MailOutlineIcon />
                       <Typography variant="subtitle1"> Send Email</Typography>
                     </Button>
-
-                    <Tooltip title="Like Product">
-                      <IconButton
-                        sx={{
-                          backgroundColor: "#e9ecef",
-                          borderRadius: "16px",
-                          paddingX: "12px",
-                          color: "black",
-                          "&:hover": {
-                            backgroundColor: "teal",
-                            color: "white",
-                          },
-                        }}
-                      >
-                        <FavoriteBorderIcon />
-                      </IconButton>
-                    </Tooltip>
                     <Tooltip title="Whatsapp">
                       <IconButton
                         sx={{
@@ -185,7 +166,7 @@ const Product = () => {
                           },
                         }}
                       >
-                        < WhatsAppIcon/>
+                        <WhatsAppIcon />
                       </IconButton>
                     </Tooltip>
                   </Box>
@@ -197,33 +178,17 @@ const Product = () => {
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
                           <Typography variant="subtitle1" color="teal">
-                            Property Type
+                            Estate Type
                           </Typography>
-                          <Typography>Semi-Detached Duplex</Typography>
+                          <Typography>{product?.categories}</Typography>
                         </Stack>
                       </Grid>
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
                           <Typography variant="subtitle1" color="teal">
-                            Bedrooms
+                            Houses
                           </Typography>
-                          <Typography>4</Typography>
-                        </Stack>
-                      </Grid>
-                      <Grid item xs={6} sm={4}>
-                        <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
-                            Bathrooms
-                          </Typography>
-                          <Typography>4.5</Typography>
-                        </Stack>
-                      </Grid>
-                      <Grid item xs={6} sm={4}>
-                        <Stack spacing={1}>
-                          <Typography variant="subtitle1" color="teal">
-                            Car Parking
-                          </Typography>
-                          <Typography>3</Typography>
+                          <Typography>{product?.house}</Typography>
                         </Stack>
                       </Grid>
                     </Grid>
@@ -260,7 +225,7 @@ const Product = () => {
                 </Grid>
               ))}
             </Grid>
-            <Tab />
+            <Tab product={product} />
           </ContainerBox>
         </Box>
       )}
@@ -270,4 +235,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Estate;

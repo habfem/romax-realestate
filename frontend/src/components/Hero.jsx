@@ -80,7 +80,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const propertiesList = () => {
-    navigate('/products/search')
+    navigate('products')
   }
 
   const propertiesFiltered = () => {

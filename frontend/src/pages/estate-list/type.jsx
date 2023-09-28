@@ -7,9 +7,10 @@ import {
   FormControlLabel,
   Divider,
 } from "@mui/material";
-import { CustomDivider } from "./filter";
+import { CustomDivider } from "./index";
 
-const Type = () => {
+const Type = ({selectedTypes, setSelectedTypes}) => {
+
   const propertyType = [
     "Detached",
     "Semi-detached",
@@ -18,7 +19,16 @@ const Type = () => {
     "Bungalow",
     "Park Home",
   ];
-  const filter = ["Swimming Pool", "Garden", "Parking", "Generator"];
+
+  const handleRatingChange = (event) => {
+    const type = event.target.value;
+    if (event.target.checked) {
+      setSelectedTypes([...selectedTypes, type]);
+    } else {
+      setSelectedTypes(selectedTypes.filter((id) => id !== type));
+    }
+  };
+  console.log(selectedTypes)
   return (
     <>
       <Stack spacing={2}>
@@ -30,24 +40,11 @@ const Type = () => {
             <FormControlLabel
               key={index}
               control={
-                <Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 25 } }} />
-              }
-              label={type}
-            />
-          ))}
-        </FormGroup>
-      </Stack>
-      <CustomDivider />
-      <Stack spacing={2}>
-        <Typography variant="subtitle1" fontSize="15px">
-          FILTERS
-        </Typography>
-        <FormGroup>
-          {filter.map((type, index) => (
-            <FormControlLabel
-              key={index}
-              control={
-                <Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 25 } }} />
+                <Checkbox
+                value={type}
+                onChange={handleRatingChange}
+                checked={selectedTypes.includes(type)}
+                sx={{ "& .MuiSvgIcon-root": { fontSize: 25 } }} />
               }
               label={type}
             />

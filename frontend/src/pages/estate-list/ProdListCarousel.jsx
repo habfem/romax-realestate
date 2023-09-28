@@ -1,18 +1,11 @@
 import { IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-const Carousel = () => {
-  const images = [
-    "https://media.rightmove.co.uk/261k/260987/139586807/260987_Sept11_IMG_03_0000.jpeg",
-    "https://media.rightmove.co.uk/261k/260987/139586807/260987_Sept11_IMG_05_0000.jpeg",
-    "https://media.rightmove.co.uk/261k/260987/139586807/260987_Sept11_IMG_06_0000.jpeg",
-    "https://media.rightmove.co.uk/261k/260987/139586807/260987_Sept11_IMG_00_0000.jpeg",
-    "https://media.rightmove.co.uk/261k/260987/139586807/260987_Sept11_IMG_02_0000.jpeg",
-    "https://media.rightmove.co.uk/261k/260987/139586807/260987_Sept11_IMG_01_0000.jpeg",
-  ];
+const Carousel = ({images}) => {
   function SampleNextArrow(props) {
     const { onClick } = props;
     return (
