@@ -34,7 +34,7 @@ const Navbar = () => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        py={{ xs:1.8,  md:2.5}}
+        py={{ xs: 1.8, md: 2.5 }}
         sx={{
           // boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
           // borderColor: "rgb(113, 113, 132)",
@@ -91,6 +91,24 @@ const Navbar = () => {
               }}
             >
               Estate Prices
+            </Typography>
+          </Link>
+          <Link
+            to="/about"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Typography
+              color="#2b3445"
+              variant="body2"
+              sx={{
+                "&:hover": {
+                  color: "teal",
+                },
+              }}
+            >
+              Our Timeline
             </Typography>
           </Link>
           <Link
@@ -176,8 +194,8 @@ const Navbar = () => {
             </Button>
           ) : (
             <Button
-              onClick={() =>     navigate("/login")
-            }
+              onClick={() => navigate("/login")
+              }
               variant="outlined"
               sx={{
                 textTransform: "none",

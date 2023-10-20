@@ -1,126 +1,129 @@
 import "./estatelist.css";
 import { DataGrid } from "@material-ui/data-grid";
+import {
+  Stack,
+  Typography,
+  IconButton,
+  Chip,
+  Switch,
+  Grid,
+  Box
+} from "@mui/material";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
+import { Edit, Delete } from "@material-ui/icons";
+import {
+  getEstates,
+  resetState,
+  deleteEstate,
+} from "../../redux/estateRedux";
 import makeToast from "../../toaster";
-import { deleteEstate, getEstates } from "../../redux/apiCalls";
+
 
 export default function EstateList() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const timelines = useSelector((state) => state.estate.estates);
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(getEstates());
+    };
+    fetchData();
+  }, [searchQuery]);
+
+  const estateState = useSelector((state) => state.estate);
+  const { isSuccess, isError, isLoading, deletedEstate } = estateState;
 
   useEffect(() => {
-    getEstates(dispatch);
-  }, [dispatch, searchQuery]);
-
-  const handleDelete = async (id) => {
-    try {
-      await deleteEstate(id, dispatch);
-      makeToast("success", "Estate deleted successfully");
-    } catch (error) {
-      makeToast("error", "Failed to delete Estate");
+    if (deletedEstate) {
+      makeToast("success", "Estate deleted successfully!");
+      dispatch(resetState());
+      dispatch(getEstates());
     }
-  };
+    if (isError) {
+      makeToast("error", "Something went wrong");
+    }
+  }, [deletedEstate, isError]);
 
-  const filteredEstate = timelines.filter((timeline) =>
-    timeline.title.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredEstates = estateState.estates.filter((estate) =>
+    estate.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-  const columns = [
-    { field: "_id", headerName: "ID", width: 200 },
-    {
-      field: "estate",
-      headerName: "Estate",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.title}
-          </div>
-        );
-      },
-    },
-    {
-      field: "categories",
-      headerName: "Categories",
-      width: 170,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            {params.row.categories}
-          </div>
-        );
-      },
-    },
-    {
-      field: "location",
-      headerName: "Location",
-      width: 300,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            {params.row.location}
-          </div>
-        );
-      },
-    },
-    {
-      field: "house",
-      headerName: "House",
-      width: 120,
-      renderCell: (params) => {
-        return (
-          <div className="productListItem">
-            {params.row.house}
-          </div>
-        );
-      },
-    },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={"/estate/" + params.row._id}>
-              <button className="productListEdit">Edit</button>
-            </Link>
-            <DeleteOutline
-              className="productListDelete"
-              onClick={() => handleDelete(params.row._id)}
-            />
-          </>
-        );
-      },
-    },
-  ];
+  const estates = filteredEstates.map((estate) => ({
+    id: estate._id,
+    title: estate.title,
+    location: estate.location,
+    house: estate.house,
+    action: null,
+  }));
 
   return (
-    <div style={{ width: "80%", height: "100vh" }}>
+    <Box sx={{
+      flex: 4,
+      px: 2
+    }}>
       <Header
-        title={"Esatate List"}
-        placeholder="Search Esatate..."
-        button="Add Esatate"
-        route="estate/newestate"
+        title={"Estate List"}
+        placeholder="Search Estate..."
+        button="Add Estate"
+        route="estate/create"
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <div className="productList" style={{ height: "calc(100vh - 64px)" }}>
-        <DataGrid
-          rows={filteredEstate}
-          disableSelectionOnClick
-          columns={columns}
-          getRowId={(row) => row._id}
-          pageSize={8}
-          checkboxSelection
-        />
-      </div>
-    </div>
+      <DataGrid
+        rows={estates}
+        columns={[
+          {
+            field: "id",
+            headerName: "id",
+            width: 200,
+          },
+          {
+            field: "title",
+            headerName: "Estate Title",
+            width: 300,
+          },
+          {
+            field: "location",
+            headerName: "Estate Location",
+            width: 200,
+          },
+          {
+            field: "house",
+            headerName: "Estate Houses",
+            width: 70,
+          },
+
+          {
+            field: "action",
+            headerName: "Action",
+            width: 200,
+            headerAlign: "center",
+            align: "center",
+            renderCell: ({ row }) => (
+              <Stack direction="row">
+                <Link to={`/estate/${row.id}`}>
+                  <IconButton aria-label="Edit">
+                    <Edit />
+                  </IconButton>
+                </Link>
+                <IconButton
+                  aria-label="Delete"
+                  disabled={isLoading}
+                  onClick={() => {
+                    dispatch(deleteEstate(row.id));
+                  }}
+                >
+                  <Delete />
+                </IconButton>
+              </Stack>
+            ),
+          },
+        ]}
+      />
+    </Box>
   );
 }

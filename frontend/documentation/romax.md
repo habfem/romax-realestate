@@ -15,7 +15,7 @@
     - `Loader.jsx/` : component used for loading state.   
     - `MobileNavBar.jsx/` : Mobile Navbar Component for mobile screen. 
     - `Navbar.jsx/` : main navbar Component. 
-    - `Navbar.jsx/` : drawer component for mobile screen. 
+    - `NavbarDrawer.jsx/` : drawer component for mobile screen. 
     - `Products.jsx`: component to display featured property on the Home Page.
     - `Estates.jsx/` : component to display all estates.
     - `Slider.jsx/` : Caurousel component for the Estate.

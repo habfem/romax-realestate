@@ -1,206 +1,520 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useDropzone } from "react-dropzone";
+import "./newEstate.css";
+import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import Dropzone from "react-dropzone";
+
 import {
   Box,
-  Grid,
   Paper,
+  Stack,
+  TextField,
+  styled,
+  MenuItem,
   Typography,
   Button,
   Divider,
-  TextField,
+  useMediaQuery,
+  IconButton,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
+import { Formik, FieldArray } from "formik";
+import * as yup from "yup";
+import { Clear, Close, Add } from "@material-ui/icons";
+import {
+  createEstates,
+  resetState,
+  getEstate,
+  updateEstate
+} from "../../redux/estateRedux"
+import { useDispatch, useSelector } from "react-redux";
 import makeToast from "../../toaster";
-import "./newEstate.css";
-import { addEstate } from "../../redux/apiCalls";
+import { useNavigate } from "react-router-dom";
 
-const CustomTextField = (props) => (
-  <TextField fullWidth variant="outlined" {...props} />
-);
+const CustomTextField = styled(TextField)({
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "8px",
+    "&.Mui-focused fieldset": {
+      borderColor: "#4e97fd",
+    },
+  },
+});
 
 export default function NewEstate() {
-  const dispatch = useDispatch();
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [categories, setCategories] = useState("");
-  const [location, setLocation] = useState("");
-  const [features, setFeatures] = useState("");
-  const [house, setHouse] = useState("");
-  const [img, setImg] = useState("");
+  const [touch, setTouched] = useState(false);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const isNonMobile = useMediaQuery("(min-width:968px)");
+  const Mobile = useMediaQuery("(min-width:600px)");
+  const estateState = useSelector((state) => state.estate)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    createdEstate,
+    updatedEstate,
+    estateData,
+  } = estateState
 
-    const newEstate = {
-      title,
-      desc,
-      categories,
-      location,
-      features,
-      house,
-      img,
+  const resetFormRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id !== "create") {
+      dispatch(getEstate(id));
+    } else {
+      dispatch(resetState());
+    }
+
+    return () => {
+      dispatch(resetState());
+      setSelectedFiles([]);
     };
+  }, [id]);
 
-    addEstate(newEstate, dispatch);
-    makeToast("success", "Estate Added successfully");
-    setTitle("");
-    setDesc("");
-    setCategories("");
-    setLocation("");
-    setFeatures("");
-    setHouse("");
-    setImg("");
+  useEffect(() => {
+    if (isSuccess && createdEstate) {
+      makeToast("success", "Estate Added Sucessfully!");
+      resetFormRef.current();
+      setSelectedFiles([]);
+      dispatch(resetState());
+    }
+    if (isSuccess && updatedEstate) {
+      makeToast("success", "Estate Updated Successfullly!");
+      setSelectedFiles([]);
+
+      navigate("/estates");
+      dispatch(resetState());
+    }
+    if (isError) {
+      makeToast("error", "Something went wrong");
+      dispatch(resetState());
+    }
+  }, [isSuccess, isError, isLoading]);
+
+  const initialValues = {
+    title: estateData?.title || "",
+    desc: estateData?.desc || "",
+    location: estateData?.location || "",
+    house: estateData?.house || "",
+    categories: estateData?.categories || [],
+    images: [],
+    features: estateData?.features || [],
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      const selectedImg = acceptedFiles[0];
-      setImg(selectedImg);
-    },
-    accept: "image/*",
-    multiple: true,
-  });
-
-  const isFormEmpty = () => {
-    return (
-      !title.trim() ||
-      !desc.trim() ||
-      !categories.trim() ||
-      !location.trim() ||
-      !features.trim() ||
-      !house.trim() ||
-      !img
-    );
-  };
+  useEffect(() => {
+    if (estateData) {
+      setSelectedFiles(estateData?.img);
+    }
+  }, [estateData]);
 
   return (
-    <Box px={{ xs: 2, md: 4 }} style={{ width: "80%", height: "100vh" }}>
+    <div className="newProduct">
       <Typography variant="h5" fontSize={{ xs: "19px", sm: "28px" }} mb={4}>
-        New Estate
-      </Typography>
-      <form className="newUserForm" onSubmit={handleSubmit}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <CustomTextField
-              type="text"
-              label="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <CustomTextField
-              type="text"
-              label="Categories"
-              value={categories}
-              onChange={(e) => setCategories(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <CustomTextField
-              type="text"
-              label="Location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <CustomTextField
-              type="number"
-              label="No of Houses"
-              value={house}
-              onChange={(e) => setHouse(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <div
-              {...getRootProps()}
-              style={{
-                backgroundColor: "#F6F9FC",
-                width: "100%",
-                marginTop: "20px",
-                border: `1px dashed ${"#DAE1E7"}`,
-                display: "flex",
-                justifyContent: "center",
-                gap: "20px",
-                alignItems: "center",
-                flexDirection: "column",
-                minHeight: "200px",
-                padding: "20px",
-                borderRadius: "8px",
+        {id === "create" ? "Add New Estate" : "Edit Estate"}
+      </Typography>{" "}
+      <Formik
+        enableReinitialize={true}
+        onSubmit={(values, { resetForm }) => {
+          console.log(values.features);
+
+          if (id !== "create") {
+            const data = {
+              id: id,
+              estateData: { ...values, previousImages: selectedFiles },
+            };
+
+            dispatch(updateEstate(data));
+            resetFormRef.current = resetForm;
+          } else {
+            dispatch(createEstates(values));
+            resetFormRef.current = resetForm;
+          }
+        }}
+        initialValues={initialValues}
+        validationSchema={estateSchema}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          setFieldValue,
+          isValid,
+          dirty,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Box
+              display="grid"
+              gap="20px"
+              rowGap="30px"
+              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              sx={{
+                "& > div": {
+                  gridColumn: isNonMobile ? undefined : "span 4",
+                },
               }}
             >
-              <input accept="image/*" {...getInputProps()} />
-              <Typography
-                variant="body2"
-                color={"#7D879C"}
-                style={{
-                  color: img ? "#7D879C" : "#f44336",
-                }}
-              >
-                {img ? "File selected: " + img.name : "Drag and drop an image here"}
-              </Typography>
-              <Divider
+              <Box
                 sx={{
-                  color: "#DAE1E7",
-                  width: "100%",
+                  gridColumn: "span 4",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "20px",
                 }}
               >
-                OR
-              </Divider>
-              <Button
+                <CustomTextField
+                  // fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Title"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.title}
+                  name="title"
+                  error={!!touched.title && !!errors.title}
+                  helperText={touched.title && errors.title}
+                  sx={{
+                    width: isNonMobile ? "250px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Location"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.location}
+                  name="location"
+                  error={!!touched.location && !!errors.location}
+                  helperText={touched.location && errors.location}
+                  sx={{
+                    width: isNonMobile ? "250px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
+                <CustomTextField
+                  // fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Categories"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.categories}
+                  name="categories"
+                  error={!!touched.categories && !!errors.categories}
+                  helperText={touched.categories && errors.categories}
+                  sx={{
+                    width: isNonMobile ? "250px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
+                <CustomTextField
+                  // fullWidth
+                  variant="outlined"
+                  type="number"
+                  label="House"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.house}
+                  name="house"
+                  error={!!touched.house && !!errors.house}
+                  helperText={touched.house && errors.house}
+                  sx={{
+                    width: isNonMobile ? "250px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />{" "}
+              </Box>
+              <Box
+                sx={{
+                  gridColumn: "span 4",
+                }}
+              >
+                <div>
+                  <Dropzone
+                    onDrop={(acceptedFiles) => {
+                      const files = acceptedFiles.map((file) => {
+                        const url = URL.createObjectURL(file);
+                        return url;
+                      });
+                      setSelectedFiles((prevFiles) => [...files, ...prevFiles]);
+                      setFieldValue("images", [
+                        ...acceptedFiles,
+                        ...values.images,
+                      ]);
+                    }}
+                    // accept="image/*"
+                    multiple={true} // Set multiple to true to allow multiple file uploads
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <div
+                        {...getRootProps()}
+                        style={{
+                          backgroundColor: "#F6F9FC",
+                          width: "100%",
+                          mt: 2,
+                          border: `1px dashed ${errors.images && touch ? "#f44336" : "#DAE1E7"
+                            }`,
+                          display: "flex",
+                          justifyContent: "center",
+                          gap: "20px",
+                          alignItems: "center",
+                          flexDirection: "column",
+                          minHeight: "200px",
+                          py: 4,
+                          borderRadius: "8px",
+                        }}
+                        onBlur={() => setTouched(true)}
+                      >
+                        <input accept="image/*" {...getInputProps()} />
+                        <Typography
+                          variant="body2"
+                          color={errors.images && touch ? "#f44336" : "#7D879C"}
+                        >
+                          {errors.images && touch
+                            ? errors.images
+                            : "Drag and drop images here"}{" "}
+                        </Typography>
+                        <Box width="300px">
+                          <Divider
+                            sx={{
+                              color: "#DAE1E7",
+                            }}
+                          >
+                            OR
+                          </Divider>
+                        </Box>
+
+                        <Button
+                          variant="outlined"
+                          sx={{
+                            color: "#4E97FD",
+                            borderColor: "#4e97fd80",
+                            textTransform: "none",
+                            fontSize: "15px",
+                            fontWeight: 500,
+                            paddingX: "30px",
+                            borderRadius: "8px",
+                            "&:hover": {
+                              backgroundColor: "rgba(78, 151, 253, 0.04)",
+                              border: "1px solid #4E97FD",
+                            },
+                          }}
+                          component="span"
+                        >
+                          Select File
+                        </Button>
+                      </div>
+                    )}
+                  </Dropzone>
+                  {selectedFiles.length > 0 && (
+                    <div
+                      style={{
+                        marginTop: "30px",
+                      }}
+                    >
+                      {selectedFiles.map((file, index) => (
+                        <div
+                          key={index}
+                          style={{
+                            display: "inline-block",
+                            position: "relative",
+                            marginRight: "10px",
+                          }}
+                        >
+                          <Clear
+                            sx={{
+                              position: "absolute",
+                              fontSize: "14px",
+                              top: "-10px",
+                              right: "-7px",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              setSelectedFiles((prevFiles) => {
+                                const updatedFiles = prevFiles.filter(
+                                  (_, i) => i !== index
+                                );
+                                return updatedFiles;
+                              });
+                              const updatedImages = values.images.filter(
+                                (_, i) => i !== index
+                              );
+                              setFieldValue("images", updatedImages);
+                            }}
+                          />
+                          <img
+                            src={file}
+                            alt="Selected"
+                            style={{
+                              width: "100px",
+                              height: "100px",
+                              borderRadius: "8px",
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Box>
+              <CustomTextField
+                fullWidth
                 variant="outlined"
+                type="text"
+                label="Description"
+                multiline
+                rows={6}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.desc}
+                name="desc"
+                error={!!touched.desc && !!errors.desc}
+                helperText={touched.desc && errors.desc}
                 sx={{
-                  color: "#4E97FD",
-                  borderColor: "#4e97fd80",
-                  textTransform: "none",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  paddingX: "30px",
-                  borderRadius: "8px",
-                  "&:hover": {
-                    backgroundColor: "rgba(78, 151, 253, 0.04)",
-                    border: "1px solid #4E97FD",
-                  },
+                  gridColumn: "span 4",
                 }}
-                component="span"
-              >
-                Select File
-              </Button>
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <CustomTextField
-              type="text"
-              label="Features"
-              value={features}
-              onChange={(e) => setFeatures(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <CustomTextField
-              type="text"
-              label="Description"
-              multiline
-              rows={6}
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12}>
+                InputLabelProps={{
+                  style: { fontSize: "15px" },
+                }}
+              />
+              <FieldArray name="features">
+                {({ push, remove }) => (
+                  <Box
+                    sx={{
+                      gridColumn: "span 4",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                      padding: "25px 20px",
+                      borderRadius: "10px",
+                      border: "1px solid #DAE1E7",
+                    }}
+                  >
+                    <Typography variant="h5" textAlign="center">
+                      Add Property Features
+                    </Typography>
+                    {values.features.map((feature, index) => (
+                      <Box
+                        key={index}
+                        sx={{
+                          position: "relative",
+                        }}
+                      >
+                        <CustomTextField
+                          fullWidth
+                          variant="outlined"
+                          type="text"
+                          label={`Feature ${index + 1}`}
+                          name={`features[${index}]`}
+                          value={feature}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.features && !!errors.features}
+                          helperText={touched.features && errors.features}
+                        />
+                        <IconButton
+                          sx={{
+                            position: "absolute",
+                            right: "-11px",
+                            top: "-14px",
+                          }}
+                          onClick={() => remove(index)}
+                        >
+                          <Close
+                            style={{
+                              fontSize: "15px",
+                            }}
+                          />
+                        </IconButton>
+                      </Box>
+                    ))}
+
+                    <Button
+                      type="button"
+                      sx={{
+                        textTransform: "none",
+                        bgcolor: "#4e97fd",
+                        color: "white",
+                        fontSize: "14px",
+                        paddingX: "15px",
+                        fontWeight: 400,
+                        paddingY: "5px",
+                        alignSelf: values.features.length > 0 ? "end" : "start",
+                        borderRadius: "8px",
+                        margin: values.features.length > 0 ? "0 0" : "0 auto",
+
+                        "&:hover": {
+                          backgroundColor: "#2756b6",
+                        },
+                      }}
+                      onClick={() => push("")}
+                    >
+                      Add Feature
+                    </Button>
+                  </Box>
+                )}
+              </FieldArray>
+            </Box>
+
             <Button
-              className="newUserButton"
               type="submit"
-              variant="contained"
-              color="primary"
-              disabled={isFormEmpty()} // Disable button if form is empty
+              disabled={!isValid || (!dirty && id === "create") || isLoading}
+              // disabled={!isValid || (!dirty || !productData)}
+
+              sx={{
+                textTransform: "none",
+                bgcolor:
+                  !isValid || (!dirty && id === "create")
+                    ? "#0000001f"
+                    : "#4e97fd",
+                color: "white",
+                fontSize: "14px",
+                paddingX: "15px",
+                fontWeight: 400,
+                paddingY: "5px",
+                alignSelf: "start",
+                borderRadius: "8px",
+                alignItems: "center",
+                mt: "20px",
+                "&:hover": {
+                  backgroundColor: "#2756b6",
+                },
+              }}
             >
-              Create
+              Save Estate
             </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </Box>
+          </form>
+        )}
+      </Formik>
+    </div>
   );
 }
+
+const estateSchema = yup.object().shape({
+  title: yup.string().required("required"),
+  location: yup
+    .string()
+    .required("required")
+    .min(5, "Name must be at least 5 characters"),
+  desc: yup
+    .string()
+    .required("required")
+    .min(8, "Name must be at least 8 characters"),
+  house: yup.number().required("required"),
+});

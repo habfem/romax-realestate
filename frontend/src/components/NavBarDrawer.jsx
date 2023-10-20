@@ -8,13 +8,13 @@ import { logout } from "../redux/userRedux";
 const NavBarDrawer = () => {
   const user = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate()
-   const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-   const handleLogout = () => {
+  const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
-  
+
   return (
     <Stack
       justifyContent="space-between"
@@ -78,6 +78,25 @@ const NavBarDrawer = () => {
             </Typography>
           </Link>
           <Link
+            to="/about"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Typography
+              color="#2b3445"
+              variant="body2"
+              py={1}
+              sx={{
+                "&:hover": {
+                  color: "teal",
+                },
+              }}
+            >
+              Our Timeline
+            </Typography>
+          </Link>
+          <Link
             style={{
               textDecoration: "none",
             }}
@@ -124,7 +143,7 @@ const NavBarDrawer = () => {
             sx={{
               textTransform: "none",
               color: "teal",
-               width: "100%",
+              width: "100%",
               borderRadius: "8px",
               borderColor: "teal",
               borderWidth: "2px",
@@ -138,7 +157,7 @@ const NavBarDrawer = () => {
           </Button>
         ) : (
           <Button
-             onClick={()=> navigate("/login")}
+            onClick={() => navigate("/login")}
             variant="outlined"
             sx={{
               textTransform: "none",

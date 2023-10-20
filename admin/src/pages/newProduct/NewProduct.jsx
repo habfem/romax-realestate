@@ -413,9 +413,8 @@ export default function NewProduct() {
                           backgroundColor: "#F6F9FC",
                           width: "100%",
                           mt: 2,
-                          border: `1px dashed ${
-                            errors.images && touch ? "#f44336" : "#DAE1E7"
-                          }`,
+                          border: `1px dashed ${errors.images && touch ? "#f44336" : "#DAE1E7"
+                            }`,
                           display: "flex",
                           justifyContent: "center",
                           gap: "20px",

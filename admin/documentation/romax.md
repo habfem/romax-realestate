@@ -3,7 +3,11 @@
 
 - **src**: The main source directory.
   - **assests**: Stores static assets (images, fonts, etc.).
-  - **components**: 
+  - **components**:
+      - `Topbar.jsx`: Navbar Component.
+      - `Sidebar.jsx`: Sidebar Component, conatains the link to different pages.
+      - Chart.jsx: Chart for the number of Registered users per month
+
   - **pages**:
       - `Login.jsx`: Login Page.
        - `API Endpoints`: 
@@ -33,24 +37,24 @@
                - `/api/faq/:id -[DELETE]`: Endpoint to delete faq with a specified id.
 
     - `userList/`
-       - `UserList.jsx`: Page for displaying list of properties in the database and deleting a property with a specified id.
+       - `UserList.jsx`: Page for displaying list of users in the database and deleting a user with a specified id.
          - `API Endpoints`: 
-              - `/api/users -[GET]`: Endpoint to get list of properties in the database. 
-              - `/api/users/:id -[DELETE]`: Endpoint to delete a property with a specified id.
+              - `/api/users -[GET]`: Endpoint to get list of users in the database. 
+              - `/api/users/:id -[DELETE]`: Endpoint to delete a user with a specified id.
 
 
     - `newUser/`
        - `NewUser.jsx`: Page for viewing, adding and editing user.
          - `API Endpoints`: 
               - `/api/auth/register -[POST]`: Endpoint to add new user.
-             - `/api/products/:id -[PUT]`: Endpoint to update a property with a specified id.
-             - `/api/products/:id -[GET]`: Endpoint to get details of  a property with a specified id. 
+             - `/api/user/:id -[PUT]`: Endpoint to update a user with a specified id.
+             - `/api/user/find/:id -[GET]`: Endpoint to get details of  a user with a specified id. 
 
     - `timelineList/`
-       - `TimelineList.jsx`: Page for displaying list of properties in the database and deleting a property with a specified id.
+       - `TimelineList.jsx`: Page for displaying list of timelines in the database and deleting a timeline with a specified id.
          - `API Endpoints`: 
-              - `/api/timeline -[GET]`: Endpoint to get list of properties in the database. 
-              - `/api/timeline/:id -[DELETE]`: Endpoint to delete a property with a specified id.
+              - `/api/timeline -[GET]`: Endpoint to get list of timelines in the database. 
+              - `/api/timeline/:id -[DELETE]`: Endpoint to delete a timeline with a specified id.
 
     - `newTimeline/`
        - `NewTimeline.jsx`: Page for adding and editing timeline.

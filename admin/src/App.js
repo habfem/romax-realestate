@@ -57,10 +57,9 @@ function App() {
                         <Route path="/bookings/:id" element={<Booking />} />
                         <Route path="/timelines" element={<TimelineList />} />
                         <Route path="/product/:id" element={<NewProduct />} />
-                        <Route path="/estate/:estateId" element={<Estate />} />
                         <Route path="/timeline/:timelineId" element={<Timeline />} />
                         <Route path="timeline/newtimeline" element={<NewTimeline />} />
-                        <Route path="/estate/newestate" element={<NewEstate />} />
+                        <Route path="/estate/:id" element={<NewEstate />} />
                         <Route path="/faq/:id" element={<AddFaq />} />
                         <Route path="/faqs" element={<Faqs />} />
 
