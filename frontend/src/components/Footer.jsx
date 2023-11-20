@@ -15,7 +15,7 @@ import {
 import logo from "../assests/Logo - Orange Background.png";
 
 const Container = styled.div`
-  background-color: #eb8510;
+  background-color: #ee7e19;
   display: flex;
   ${mobile({ flexDirection: "column" })};
   ${mobileXR({ flexDirection: "column" })};
@@ -39,7 +39,7 @@ const Left = styled.div`
       max-width: 250px; 
     }
   }
-  background-color: #eb8510;
+  background-color: #ee7e19;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,14 +68,14 @@ const SocialIcon = styled.div`
 const Center = styled.div`
   flex: 1;
   padding: 20px;
-  background-color: #eb8510;
+  background-color: #ee7e19;
   ${mobile({ dsiplay: "none" })};
   ${mobileXR({ dsiplay: "none" })};
   ${tablet({ dsiplay: "none" })};
 `
 const Title = styled.h3`
   margin-bottom: 30px;
-  background-color: #eb8510;
+  background-color: #ee7e19;
 `
 const List = styled.ul`
   margin: 0;
@@ -83,17 +83,17 @@ const List = styled.ul`
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  background-color: #eb8510;
+  background-color: #ee7e19;
 `
 const ListItem = styled.li`
   width: 50%;
   margin-bottom: 10px;
-  background-color: #eb8510;
+  background-color: #ee7e19;
 `
 const Right = styled.div`
   flex: 1;
   padding: 20px;
-  background-color: #eb8510;
+  background-color: #ee7e19;
   ${mobile({ backgroundColor: "#fff8f8" })};
   ${mobileXR({ backgroundColor: "#fff8f8", height: "100%" })};
   ${tablet({ backgroundColor: "#fff8f8", height: "100%" })};
@@ -102,7 +102,7 @@ const ContactItem = styled.div`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-  background-color: #eb8510;
+  background-color: #ee7e19;
 `
 
 /* const Payment = styled.img`
@@ -111,14 +111,14 @@ const ContactItem = styled.div`
 
 const Footer = () => {
   return (
-    <Container style={{ backgroundColor: "#eb8510" }}>
+    <Container style={{ backgroundColor: "#ee7e19" }}>
       <Left>
         <Box height={{ xs: "120px", sm: "140px" }} >
           <img
             src={logo}
             alt="Romax Properties Ltd Logo"
             style={{
-              backgroundColor: "#eb8510",
+              backgroundColor: "#ee7e19",
               height: "200px",
               width: "100%",
               objectFit: "cover",
@@ -154,7 +154,7 @@ const Footer = () => {
           <ListItem>Terms</ListItem>
         </List>
       </Center>
-      <Right style={{ backgroundColor: "#eb8510" }}>
+      <Right style={{ backgroundColor: "#ee7e19" }}>
         <Title>Contact</Title>
         <ContactItem><Room style={{ marginRight: "10px" }} /> 622 Dixie Path, South Tobinchester 98336</ContactItem>
         <ContactItem><Phone style={{ marginRight: "10px" }} /> + (234) - 913 - 396 - 8613</ContactItem>

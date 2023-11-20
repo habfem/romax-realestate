@@ -173,6 +173,26 @@ const Navbar = () => {
               </Typography>
             </Link>
           )}
+          {user && user.isAdmin && (
+            <Link
+              to="https://romax-admin.netlify.app/"
+              style={{
+                textDecoration: "none",
+              }}
+            >
+              <Typography
+                color="#2b3445"
+                variant="body2"
+                sx={{
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                {`Admin`}
+              </Typography>
+            </Link>
+          )}
           <Link
             style={{
               textDecoration: "none",
