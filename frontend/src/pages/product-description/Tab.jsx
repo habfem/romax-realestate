@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tabs, Tab, Box, Stack, Typography } from "@mui/material";
+import { Tabs, Tab, Box, Stack, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, } from "@mui/material";
 import Description from "./Description";
 
 const TabPanel = ({ children, value, index }) => (
@@ -43,11 +43,25 @@ const TabComponent = ({ product }) => {
               fontSize: "16px",
             }}
           />
+           <Tab
+            label="Distance"
+            sx={{
+              textTransform: "none",
+              fontSize: "16px",
+            }}
+          />
+          <Tab
+            label="Room Sizes"
+            sx={{
+              textTransform: "none",
+              fontSize: "16px",
+            }}
+          />
         </Tabs>
       </Box>
 
       <TabPanel value={selectedTab} index={0}>
-        <Description desc={product.desc} features={product.features} />
+        <Description desc={product.desc} features={product.features} broadband={product.broadband} />
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
         <Stack spacing={1.5}>
@@ -65,6 +79,53 @@ const TabComponent = ({ product }) => {
             <Typography>0700080003</Typography>
           </Stack>
         </Stack>
+      </TabPanel>
+      <TabPanel value={selectedTab} index={2}>
+      <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Time</TableCell>
+            <TableCell>Distance</TableCell>
+            <TableCell>Location</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>15 mins</TableCell>
+            <TableCell>from Ikeja City Mall</TableCell>
+            <TableCell>Aluasa, Ikeja</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>10 mins</TableCell>
+            <TableCell>from Ikeja GRA</TableCell>
+            <TableCell>Aluasa, Ikeja</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+      </TabPanel>
+      <TabPanel value={selectedTab} index={3}>
+      <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Room</TableCell>
+            <TableCell>Dimensions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>Room 1</TableCell>
+            <TableCell>20m by 15m</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Room 2</TableCell>
+            <TableCell>15m by 15m</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
       </TabPanel>
     </Box>
   );

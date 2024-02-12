@@ -128,6 +128,24 @@ const Navbar = () => {
               Our Timeline
             </Typography>
           </Link>
+          <Link
+            to="/blogs"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Typography
+              color="#2b3445"
+              variant="body2"
+              sx={{
+                "&:hover": {
+                  color: "primary.main",
+                },
+              }}
+            >
+              Our Blogs
+            </Typography>
+          </Link>
           {/* <Link
             style={{
               textDecoration: "none",

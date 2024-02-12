@@ -6,14 +6,17 @@ import {
   Typography,
   ListSubheader,
 } from "@mui/material";
-const Description = ({ desc, features }) => {
+const Description = ({ desc, features, broadband }) => {
   return (
     <Stack spacing={2}>
       <Stack>
         <Typography variant="body2"> Description</Typography>
         <Typography>{desc}</Typography>
       </Stack>
-
+      <Stack>
+        <Typography variant="body2"> Broadband</Typography>
+        <Typography>{broadband}</Typography>
+      </Stack>
       <Stack>
         <Typography variant="body2"> Features:</Typography>
         <List

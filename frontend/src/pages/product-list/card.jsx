@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
+import SignalCellularConnectedNoInternet3BarIcon from '@mui/icons-material/SignalCellularConnectedNoInternet3Bar';
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { DirectionsCar } from "@mui/icons-material";
@@ -205,21 +206,27 @@ const Card = (props) => {
                 <Stack direction="row" spacing={1}>
                   <HotelOutlinedIcon />
                   <Typography variant="body1">
-                    <span style={{ fontSize: "12px" }}>X</span>
+                    <span style={{ fontSize: "10px" }}>X</span>
                     {bed}
                   </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1}>
                   <BathtubOutlinedIcon />
                   <Typography variant="body1">
-                    <span style={{ fontSize: "12px" }}>X</span>
+                    <span style={{ fontSize: "10px" }}>X</span>
                     {bath}
                   </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1}>
                   <DirectionsCar />
                   <Typography variant="body1">
-                    <span style={{ fontSize: "12px" }}>X</span>
+                    <span style={{ fontSize: "10px" }}>X</span>
+                    {car}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" spacing={1}>
+                  <SignalCellularConnectedNoInternet3BarIcon />
+                  <Typography variant="body1">
                     {car}
                   </Typography>
                 </Stack>
