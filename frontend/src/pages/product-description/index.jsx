@@ -22,15 +22,18 @@ import {
 import { features } from "../../data";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+//import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Tab from "./Tab";
 import Carousel from "./ProdDescCarousel";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
 import makeToast from "../../toaster";
 import { useSelector } from "react-redux";
-import { Close } from "@mui/icons-material";
+//import { Close } from "@mui/icons-material";
 import Login from "../../pages/Login";
+import Map from "./Map";
+import Mortgage from "./Mortgage";
+import SignalCellularConnectedNoInternet3BarIcon from '@mui/icons-material/SignalCellularConnectedNoInternet3Bar';
 
 const Product = () => {
   const location = useLocation();
@@ -44,6 +47,10 @@ const Product = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handlePrint = () => {
+    window.print();
+  };
 
   const handleSavedProperty = async () => {
     if (!user) {
@@ -96,6 +103,7 @@ const Product = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={2}>
+                <div onClick={handlePrint} style={{ fontSize: '1.5em', cursor: 'pointer' }}>🖨️</div>
                   <Typography variant="h5">{product?.title}</Typography>
 
                   <Typography variant="h5" color="primary.main">
@@ -187,7 +195,7 @@ const Product = () => {
                       }}
                     >
                       <MailOutlineIcon />
-                      <Typography variant="subtitle1"> Send Email</Typography>
+                      <Typography variant="subtitle1"> Contact</Typography>
                     </Button>
 
                     <Tooltip title="Save Property">
@@ -208,7 +216,7 @@ const Product = () => {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Whatsapp">
-                      <IconButton
+                      {/* <IconButton
                         sx={{
                           backgroundColor: "#e9ecef",
                           borderRadius: "16px",
@@ -221,7 +229,7 @@ const Product = () => {
                         }}
                       >
                         <WhatsAppIcon />
-                      </IconButton>
+                      </IconButton> */}
                     </Tooltip>
                   </Box>
                   <Stack>
@@ -269,6 +277,14 @@ const Product = () => {
                           <Typography>{product?.size}</Typography>
                         </Stack>
                       </Grid>
+                      <Grid item xs={6} sm={4}>
+                        <Stack spacing={1}>
+                          <Typography variant="subtitle1" color="primary.main">
+                            Energy Efficiency
+                          </Typography>
+                          <Typography><SignalCellularConnectedNoInternet3BarIcon /> D+</Typography>
+                        </Stack>
+                      </Grid>
                     </Grid>
                   </Stack>
                 </Stack>
@@ -311,6 +327,32 @@ const Product = () => {
                 </Grid>
               ))}
             </Grid>
+
+          <Grid container spacing={2}>
+            <Grid item xs={8}>
+              <Map />
+            </Grid>
+            
+            <Grid item xs={4}> 
+            <Box
+                    sx={{
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                      padding: "20px",
+                      height: "95%",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
+                      borderRadius: "8px",
+                    }}
+                  >
+              <Mortgage />
+              </Box>
+            </Grid>
+          </Grid>
+
             <Tab product={product} />
           </ContainerBox>
         </Box>
