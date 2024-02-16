@@ -34,6 +34,7 @@ import Login from "../../pages/Login";
 import Map from "./Map";
 import Mortgage from "./Mortgage";
 import SignalCellularConnectedNoInternet3BarIcon from '@mui/icons-material/SignalCellularConnectedNoInternet3Bar';
+import TravelTime from "../../components/TravelTime";
 
 const Product = () => {
   const location = useLocation();
@@ -103,7 +104,6 @@ const Product = () => {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Stack spacing={2}>
-                <div onClick={handlePrint} style={{ fontSize: '1.5em', cursor: 'pointer' }}>🖨️</div>
                   <Typography variant="h5">{product?.title}</Typography>
 
                   <Typography variant="h5" color="primary.main">
@@ -215,7 +215,20 @@ const Product = () => {
                         <FavoriteBorderIcon />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Whatsapp">
+                    <Tooltip title="print">
+                    <IconButton
+                        onClick={handlePrint}
+                        sx={{
+                          backgroundColor: toggle ? "primary.main" : "#e9ecef",
+                          borderRadius: "16px",
+                          paddingX: "12px",
+                          color: toggle ? "white" : "black",
+                          "&:hover": {
+                            backgroundColor: "primary.main",
+                            color: "white",
+                          },
+                        }}
+                      >🖨️</IconButton>
                       {/* <IconButton
                         sx={{
                           backgroundColor: "#e9ecef",
@@ -327,8 +340,9 @@ const Product = () => {
                 </Grid>
               ))}
             </Grid>
-
-          <Grid container spacing={2}>
+            <Tab product={product} />
+            <br /> <br />
+            <Grid container spacing={2}>
             <Grid item xs={8}>
               <Map />
             </Grid>
@@ -352,9 +366,11 @@ const Product = () => {
               </Box>
             </Grid>
           </Grid>
-
-            <Tab product={product} />
+          <Grid container spacing={2}>
+            <TravelTime />
+          </Grid>
           </ContainerBox>
+
         </Box>
       )}
       <Newsletter />

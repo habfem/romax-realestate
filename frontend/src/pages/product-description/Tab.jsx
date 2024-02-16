@@ -37,21 +37,21 @@ const TabComponent = ({ product }) => {
             }}
           />
           <Tab
-            label="Payment Plan"
-            sx={{
-              textTransform: "none",
-              fontSize: "16px",
-            }}
-          />
-           <Tab
-            label="Distance"
+            label="Room Sizes"
             sx={{
               textTransform: "none",
               fontSize: "16px",
             }}
           />
           <Tab
-            label="Room Sizes"
+            label="Other Spaces"
+            sx={{
+              textTransform: "none",
+              fontSize: "16px",
+            }}
+          />
+           <Tab
+            label="Outside Space"
             sx={{
               textTransform: "none",
               fontSize: "16px",
@@ -61,71 +61,196 @@ const TabComponent = ({ product }) => {
       </Box>
 
       <TabPanel value={selectedTab} index={0}>
-        <Description desc={product.desc} features={product.features} broadband={product.broadband} />
+      <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Living Area</TableCell>
+                <TableCell>Dimensions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <div>
+                    <Typography variant="body2">Parlour</Typography>
+                    <Typography variant="subtitle1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    25m by 15m
+                    </Typography>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <div>
+                    <Typography variant="body2">Kitchen</Typography>
+                    <Typography variant="subtitle1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    15m by 15m
+                    </Typography>
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
-        <Stack spacing={1.5}>
-          <Typography variant="body2">
-            50% Initial deposit balance spread within 6 months.
-          </Typography>
-
-          <Stack>
-            <Typography variant="subtitle1">Contact Number</Typography>
-            <Typography>09019876493</Typography>
-          </Stack>
-
-          <Stack>
-            <Typography variant="subtitle1">Tollfree Hotline</Typography>
-            <Typography>0700080003</Typography>
-          </Stack>
-        </Stack>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Room</TableCell>
+                <TableCell>Dimensions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <div>
+                    <Typography variant="body2">Room 1:</Typography>
+                    <Typography variant="subtitle1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    25m by 15m
+                    </Typography>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <div>
+                    <Typography variant="body2">Room 2:</Typography>
+                    <Typography variant="subtitle1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    15m by 15m
+                    </Typography>
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
       </TabPanel>
       <TabPanel value={selectedTab} index={2}>
       <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Time</TableCell>
-            <TableCell>Distance</TableCell>
-            <TableCell>Location</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>15 mins</TableCell>
-            <TableCell>from Ikeja City Mall</TableCell>
-            <TableCell>Aluasa, Ikeja</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>10 mins</TableCell>
-            <TableCell>from Ikeja GRA</TableCell>
-            <TableCell>Aluasa, Ikeja</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Space</TableCell>
+                <TableCell>Dimensions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <div>
+                    <Typography variant="body2">Room 1:</Typography>
+                    <Typography variant="subtitle1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    25m by 15m
+                    </Typography>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <div>
+                    <Typography variant="body2">Room 2:</Typography>
+                    <Typography variant="subtitle1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    15m by 15m
+                    </Typography>
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
       </TabPanel>
       <TabPanel value={selectedTab} index={3}>
       <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Room</TableCell>
-            <TableCell>Dimensions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>Room 1</TableCell>
-            <TableCell>20m by 15m</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Room 2</TableCell>
-            <TableCell>15m by 15m</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Outside Area</TableCell>
+                <TableCell>Dimensions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <div>
+                    <Typography variant="body2">Room 1:</Typography>
+                    <Typography variant="subtitle1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    25m by 15m
+                    </Typography>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <div>
+                    <Typography variant="body2">Room 2:</Typography>
+                    <Typography variant="subtitle1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    15m by 15m
+                    </Typography>
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
       </TabPanel>
     </Box>
   );
