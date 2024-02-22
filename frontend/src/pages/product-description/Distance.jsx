@@ -13,7 +13,7 @@ const TabPanel = ({ children, value, index }) => (
   </div>
 );
 
-const TabComponent = ({ product }) => {
+const Distance = ({ product }) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -30,28 +30,21 @@ const TabComponent = ({ product }) => {
           allowScrollButtonsMobile
         >
           <Tab
-            label="Property Description"
+            label="Primary Schools"
             sx={{
               textTransform: "none",
               fontSize: "16px",
             }}
           />
           <Tab
-            label="Room Sizes"
+            label="Secondary Schools"
             sx={{
               textTransform: "none",
               fontSize: "16px",
             }}
           />
           <Tab
-            label="Other Spaces"
-            sx={{
-              textTransform: "none",
-              fontSize: "16px",
-            }}
-          />
-           <Tab
-            label="Outside Space"
+            label="Public Transport"
             sx={{
               textTransform: "none",
               fontSize: "16px",
@@ -65,24 +58,31 @@ const TabComponent = ({ product }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Living Area</TableCell>
-                <TableCell>Dimensions</TableCell>
+                <TableCell>School name</TableCell>
+                <TableCell>Distance</TableCell>
+                <TableCell>Pupils</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
                 <TableCell>
                   <div>
-                    <Typography variant="body2">Parlour</Typography>
                     <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                        St. John 
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    25m by 15m
+                    50m
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    250
                     </Typography>
                   </div>
                 </TableCell>
@@ -90,16 +90,22 @@ const TabComponent = ({ product }) => {
               <TableRow>
                 <TableCell>
                   <div>
-                    <Typography variant="body2">Kitchen</Typography>
                     <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                        St. Paul Cresent
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    15m by 15m
+                    500m
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    240
                     </Typography>
                   </div>
                 </TableCell>
@@ -109,28 +115,35 @@ const TabComponent = ({ product }) => {
         </TableContainer>
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
-        <TableContainer component={Paper}>
+      <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Room</TableCell>
-                <TableCell>Dimensions</TableCell>
+                <TableCell>School name</TableCell>
+                <TableCell>Distance</TableCell>
+                <TableCell>Pupils</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
                 <TableCell>
                   <div>
-                    <Typography variant="body2">Room 1:</Typography>
                     <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                        St. John Secondary School
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    25m by 15m
+                    50m
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    2500
                     </Typography>
                   </div>
                 </TableCell>
@@ -138,16 +151,22 @@ const TabComponent = ({ product }) => {
               <TableRow>
                 <TableCell>
                   <div>
-                    <Typography variant="body2">Room 2:</Typography>
                     <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                        St. Paul Secondary Cresent
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    15m by 15m
+                    500m
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    2225
                     </Typography>
                   </div>
                 </TableCell>
@@ -161,72 +180,55 @@ const TabComponent = ({ product }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Space</TableCell>
-                <TableCell>Dimensions</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Distance</TableCell>
+                <TableCell>Stop</TableCell>
+                <TableCell>Route</TableCell>
+                <TableCell>Destination</TableCell>
+                <TableCell>Provider</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
                 <TableCell>
                   <div>
-                    <Typography variant="body2">Room 1:</Typography>
                     <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                        Bus
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    25m by 15m
-                    </Typography>
-                  </div>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <div>
-                    <Typography variant="body2">Room 2:</Typography>
-                    <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                    150m
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    15m by 15m
-                    </Typography>
-                  </div>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </TabPanel>
-      <TabPanel value={selectedTab} index={3}>
-      <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Outside Area</TableCell>
-                <TableCell>Dimensions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <div>
-                    <Typography variant="body2">Room 1:</Typography>
-                    <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                    Whately Place
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    25m by 15m
+                    13
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    St Pappin's Rd
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    Dublin Bus
                     </Typography>
                   </div>
                 </TableCell>
@@ -234,16 +236,43 @@ const TabComponent = ({ product }) => {
               <TableRow>
                 <TableCell>
                   <div>
-                    <Typography variant="body2">Room 2:</Typography>
                     <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                        Bus
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    15m by 15m
+                    350m
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    Poolbeg St
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    29
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    St Pappin's Rd
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <div>
+                    <Typography variant="subtitle1">
+                    Dublin Bus
                     </Typography>
                   </div>
                 </TableCell>
@@ -256,4 +285,4 @@ const TabComponent = ({ product }) => {
   );
 };
 
-export default TabComponent;
+export default Distance;

@@ -14,6 +14,10 @@ import {
   TextField,
   Button,
   useMediaQuery,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl
 } from "@mui/material";
 import { publicRequest } from "../../requestMethods";
 import { useLocation, useNavigate } from "react-router";
@@ -143,6 +147,21 @@ const Booking = () => {
                 }) => (
                   <form onSubmit={handleSubmit}>
                     <Stack spacing={2}>
+                    <CustomTextField
+                        fullWidth
+                        variant="outlined"
+                        type="name"
+                        label="Full Name"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.name}
+                        name="name"
+                        error={!!touched.name && !!errors.name}
+                        helperText={touched.name && errors.name}
+                        InputLabelProps={{
+                          style: { fontSize: "16px" },
+                        }}
+                      />
                       <CustomTextField
                         fullWidth
                         variant="outlined"
@@ -173,6 +192,20 @@ const Booking = () => {
                           style: { fontSize: "16px" },
                         }}
                       />
+                      <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">Availabilty</InputLabel>
+                      <Select
+                        labelId="Avialabilty"
+                        id="select"
+                        name="Avialability"
+                        value="Avialbaility"
+                        onChange={handleChange}
+                        label="Availability"
+                      >
+                        <MenuItem value="Day">Day</MenuItem>
+                        <MenuItem value="Evening">Evening</MenuItem>
+                      </Select>
+                      </FormControl>
                       <CustomTextField
                         fullWidth
                         variant="outlined"

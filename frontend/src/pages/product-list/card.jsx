@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
-import SignalCellularConnectedNoInternet3BarIcon from '@mui/icons-material/SignalCellularConnectedNoInternet3Bar';
+import SortIcon from '@mui/icons-material/Sort';
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { DirectionsCar } from "@mui/icons-material";
@@ -225,9 +225,9 @@ const Card = (props) => {
                   </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1}>
-                  <SignalCellularConnectedNoInternet3BarIcon />
+                  <SortIcon />
                   <Typography variant="body1">
-                    {car}
+                    C+
                   </Typography>
                 </Stack>
               </Stack>
