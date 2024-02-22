@@ -35,6 +35,8 @@ import Map from "./Map";
 import Mortgage from "./Mortgage";
 import SignalCellularConnectedNoInternet3BarIcon from '@mui/icons-material/SignalCellularConnectedNoInternet3Bar';
 import TravelTime from "../../components/TravelTime";
+import Distance from "./Distance";
+import AlphabetArrows from "../../components/Alphabet";
 
 const Product = () => {
   const location = useLocation();
@@ -229,21 +231,8 @@ const Product = () => {
                           },
                         }}
                       >🖨️</IconButton>
-                      {/* <IconButton
-                        sx={{
-                          backgroundColor: "#e9ecef",
-                          borderRadius: "16px",
-                          paddingX: "12px",
-                          color: "black",
-                          "&:hover": {
-                            backgroundColor: "primary.main",
-                            color: "white",
-                          },
-                        }}
-                      >
-                        <WhatsAppIcon />
-                      </IconButton> */}
                     </Tooltip>
+                    {/* <AlphabetArrows /> */}
                   </Box>
                   <Stack>
                     <Typography variant="body2" mb={1}>
@@ -343,11 +332,11 @@ const Product = () => {
             <Tab product={product} />
             <br /> <br />
             <Grid container spacing={2}>
-            <Grid item xs={8}>
+            <Grid item xs={8.75}>
               <Map />
             </Grid>
             
-            <Grid item xs={4}> 
+            <Grid item xs={3.25}> 
             <Box
                     sx={{
                       backgroundSize: "cover",
@@ -362,12 +351,30 @@ const Product = () => {
                       borderRadius: "8px",
                     }}
                   >
-              <Mortgage />
+              <TravelTime />
               </Box>
             </Grid>
           </Grid>
+          <br /> <br />
+          <Distance product={product} />
+          <br /> <br />
           <Grid container spacing={2}>
-            <TravelTime />
+          <Box
+              sx={{
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                padding: "20px",
+                height: "95%",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
+                borderRadius: "8px",
+                }}
+            >
+            <Mortgage />
+            </Box>
           </Grid>
           </ContainerBox>
 
