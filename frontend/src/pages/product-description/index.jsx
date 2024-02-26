@@ -33,7 +33,7 @@ import { useSelector } from "react-redux";
 import Login from "../../pages/Login";
 import Map from "./Map";
 import Mortgage from "./Mortgage";
-import SignalCellularConnectedNoInternet3BarIcon from '@mui/icons-material/SignalCellularConnectedNoInternet3Bar';
+import PreviewIcon from '@mui/icons-material/Preview';
 import TravelTime from "../../components/TravelTime";
 import Distance from "./Distance";
 import AlphabetArrows from "../../components/Alphabet";
@@ -50,6 +50,7 @@ const Product = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [viewCount, setViewCount] = useState(0);
 
   const handlePrint = () => {
     window.print();
@@ -75,6 +76,7 @@ const Product = () => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get(`/products/${id}`);
+        setViewCount(res.data.views);
         setProduct(res.data);
         setLoading(false);
       } catch (error) {
@@ -83,6 +85,20 @@ const Product = () => {
     };
     getProduct();
   }, [id]);
+
+  const handleIncrementView = async () => {
+    try {
+      await publicRequest.put(`/products/increment-views/${id}`);
+      setViewCount((prevCount) => prevCount + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+    handleIncrementView();
+  }, []);
 
   return (
     <Box>
@@ -232,7 +248,7 @@ const Product = () => {
                         }}
                       >🖨️</IconButton>
                     </Tooltip>
-                    {/* <AlphabetArrows /> */}
+                    <AlphabetArrows />
                   </Box>
                   <Stack>
                     <Typography variant="body2" mb={1}>
@@ -282,9 +298,9 @@ const Product = () => {
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
                           <Typography variant="subtitle1" color="primary.main">
-                            Energy Efficiency
+                            Number of visit
                           </Typography>
-                          <Typography><SignalCellularConnectedNoInternet3BarIcon /> D+</Typography>
+                          <Typography>{viewCount}</Typography>
                         </Stack>
                       </Grid>
                     </Grid>
