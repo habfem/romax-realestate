@@ -67,7 +67,11 @@ const productSchema = new mongoose.Schema({
   isFeatured: {
     type: Boolean,
     default: false,
-  }
+  },
+  views: {
+    type: Number,
+    default: 0,
+  },
 }, { timestamps: true });
 
 const Product = mongoose.model("Product", productSchema)

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 const Map = () => {
   const [mapType, setMapType] = useState('roadmap'); // Initial map type
@@ -14,10 +15,10 @@ const Map = () => {
     <div style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', top: '20px', right: '20px', zIndex: '1', display: 'flex', gap: '10px' }}>
         <button onClick={() => openInNewTab(streetViewURL)} style={buttonStyle}>
-          Street View
+         <> Street View <LaunchIcon /></>
         </button>
         <button onClick={() => openInNewTab(satelliteViewURL)} style={buttonStyle}>
-          Satellite View
+         <> Satellite View <LaunchIcon /> </>
         </button>
       </div>
       <iframe
