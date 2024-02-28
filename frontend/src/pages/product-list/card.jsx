@@ -36,6 +36,7 @@ const Card = (props) => {
     isFeatured,
     propertyType,
     createdAt,
+    views,
   } = props;
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
@@ -234,9 +235,15 @@ const Card = (props) => {
               <Typography variant="subtitle2" color="#7D879C" mt={1.5}>
                 {`${desc.substring(0, 200)}...`}
               </Typography>
+
+              <Stack spacing={20} direction="row" alignItems="center">
               <Typography variant="subtitle1" color="primary.main" mt={3}>
                 {`Added on ${dateConverter(createdAt)}`}
               </Typography>
+              <Typography variant="subtitle1" color="primary.main" mt={1}>
+                {`${views} views`}
+              </Typography>
+              </Stack>
             </Link>
 
             <Stack direction="row" justifyContent="space-between" mt={3}>
