@@ -298,9 +298,9 @@ const Product = () => {
                       <Grid item xs={6} sm={4}>
                         <Stack spacing={1}>
                           <Typography variant="subtitle1" color="primary.main">
-                            Number of visit
+                            BroadBand
                           </Typography>
-                          <Typography>{viewCount}</Typography>
+                          <Typography>Fibre-To-The-Home (FTTH)</Typography>
                         </Stack>
                       </Grid>
                     </Grid>
