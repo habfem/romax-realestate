@@ -144,21 +144,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put('/increment-views/:id', async (req, res) => {
-  try {
-    const productId = req.params.id;
-    const product = await Product.findByIdAndUpdate(
-      productId,
-      { $inc: { views: 1 } }, // Increment views by 1
-      { new: true } // Return the updated document
-    );
-    res.json(product);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 //GET ALL PRODUCT
 router.get("/", async (req, res) => {
   try {

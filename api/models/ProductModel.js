@@ -68,6 +68,30 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  broadband: {
+    type: String,
+    default: "Fibre-To-The-Home (FTTH)"
+  },
+  parlourDesc: {
+    type: String,
+    default: "Lorem"
+  },
+  parlourDimension: {
+    type: String,
+    default: "20m by 20m"
+  },
+  kitchenDesc: {
+    type: String,
+    default: "Lorem kitchen"
+  },
+  kitchenDimension: {
+    type: String,
+    default: "20m by 20m"
+  },
+  energyEfficiency: {
+    type: String,
+    default: "C+"
+  },
   views: {
     type: Number,
     default: 0,
