@@ -92,6 +92,27 @@ const productSchema = new mongoose.Schema({
     type: String,
     default: "C+"
   },
+  rooms: [
+    {
+      title: { type: String, default: "Room" },
+      description: { type: String, default: "Room Description" },
+      dimensions: { type: String, default: "20m by 20m" },
+    },
+  ],
+  otherSpace: [
+    {
+      title: { type: String, default: "Other Space" },
+      description: { type: String, default: "Other Space Description" },
+      dimensions: { type: String, default: "20m by 20m" },
+    },
+  ],
+  OutsideSpace: [
+    {
+      title: { type: String, default: "Outside Space" },
+      description: { type: String, default: "Outside Space Description" },
+      dimensions: { type: String, default: "20m by 20m" },
+    },
+  ],
   views: {
     type: Number,
     default: 0,

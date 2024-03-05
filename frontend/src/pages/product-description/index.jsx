@@ -300,7 +300,7 @@ const Product = () => {
                           <Typography variant="subtitle1" color="primary.main">
                             BroadBand
                           </Typography>
-                          <Typography>Fibre-To-The-Home (FTTH)</Typography>
+                          <Typography>{product?.broadband}</Typography>
                         </Stack>
                       </Grid>
                     </Grid>

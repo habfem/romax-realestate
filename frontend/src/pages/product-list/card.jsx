@@ -37,6 +37,7 @@ const Card = (props) => {
     propertyType,
     createdAt,
     views,
+    energyEfficiency,
   } = props;
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
@@ -228,7 +229,7 @@ const Card = (props) => {
                 <Stack direction="row" spacing={1}>
                   <SortIcon />
                   <Typography variant="body1">
-                    C+
+                    {energyEfficiency}
                   </Typography>
                 </Stack>
               </Stack>

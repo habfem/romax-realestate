@@ -75,14 +75,14 @@ const TabComponent = ({ product }) => {
                   <div>
                     <Typography variant="body2">Parlour</Typography>
                     <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
+                      {product?.parlourDesc}
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    25m by 15m
+                    {product?.parlourDimension}
                     </Typography>
                   </div>
                 </TableCell>
@@ -92,14 +92,14 @@ const TabComponent = ({ product }) => {
                   <div>
                     <Typography variant="body2">Kitchen</Typography>
                     <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
+                      {product?.kitchenDesc}
                     </Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
                     <Typography variant="subtitle1">
-                    15m by 15m
+                    {product?.kitchenDimension}
                     </Typography>
                   </div>
                 </TableCell>
@@ -118,40 +118,21 @@ const TabComponent = ({ product }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell>
-                  <div>
-                    <Typography variant="body2">Room 1:</Typography>
-                    <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
-                    </Typography>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div>
-                    <Typography variant="subtitle1">
-                    25m by 15m
-                    </Typography>
-                  </div>
+              {product.rooms.map((room, index) => (
+              <TableRow key={index}>
+              <TableCell>
+              <div>
+                <Typography variant="body2">{room?.title}</Typography>
+                <Typography variant="subtitle1">{room?.description}</Typography>
+              </div>
+              </TableCell>
+              <TableCell>
+                <div>
+                  <Typography variant="subtitle1">{room?.dimensions}</Typography>
+                </div>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
-                  <div>
-                    <Typography variant="body2">Room 2:</Typography>
-                    <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
-                    </Typography>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div>
-                    <Typography variant="subtitle1">
-                    15m by 15m
-                    </Typography>
-                  </div>
-                </TableCell>
-              </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -166,40 +147,21 @@ const TabComponent = ({ product }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
+            {product.otherSpace.map((space, index) => (
+              <TableRow key={index}>
                 <TableCell>
                   <div>
-                    <Typography variant="body2">Room 1:</Typography>
-                    <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
-                    </Typography>
+                    <Typography variant="body2">{space?.title}</Typography>
+                    <Typography variant="subtitle1">{space?.description}</Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
-                    <Typography variant="subtitle1">
-                    25m by 15m
-                    </Typography>
+                    <Typography variant="subtitle1">{space?.dimensions}</Typography>
                   </div>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
-                  <div>
-                    <Typography variant="body2">Room 2:</Typography>
-                    <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
-                    </Typography>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div>
-                    <Typography variant="subtitle1">
-                    15m by 15m
-                    </Typography>
-                  </div>
-                </TableCell>
-              </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -214,40 +176,21 @@ const TabComponent = ({ product }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
+            {product.OutsideSpace.map((outside, index) => (
+              <TableRow key={index}>
                 <TableCell>
                   <div>
-                    <Typography variant="body2">Room 1:</Typography>
-                    <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis libero quidem necessitatibus! Libero, ipsa! Magni vero quam aut sed mollitia. Inventore amet atque numquam quas odit esse aspernatur, quasi deserunt!
-                    </Typography>
+                    <Typography variant="body2">{outside?.title}</Typography>
+                    <Typography variant="subtitle1">{outside?.description}</Typography>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div>
-                    <Typography variant="subtitle1">
-                    25m by 15m
-                    </Typography>
+                    <Typography variant="subtitle1">{outside?.dimensions}</Typography>
                   </div>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
-                  <div>
-                    <Typography variant="body2">Room 2:</Typography>
-                    <Typography variant="subtitle1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, harum.
-                    </Typography>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div>
-                    <Typography variant="subtitle1">
-                    15m by 15m
-                    </Typography>
-                  </div>
-                </TableCell>
-              </TableRow>
+            ))}
             </TableBody>
           </Table>
         </TableContainer>

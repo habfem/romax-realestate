@@ -7,29 +7,36 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  CircularProgress,
 } from "@mui/material";
 
 const Mortgage = () => {
   const [loanAmount, setLoanAmount] = useState('');
-  const [interestRate, setInterestRate] = useState('');
+  const [initialDeposit, setInitialDeposit] = useState('');
   const [loanTerm, setLoanTerm] = useState('');
   const [monthlyPayment, setMonthlyPayment] = useState(null);
+  const [loanInterest, setLoanInterest] = useState(0.08); // Initial interest rate set to 8%
+
+  const amortize = (borrowed_sum, interest_rate, loan_period) => {
+    const months_in_year = 12;
+    const adjusted_loan_period_months = loan_period * months_in_year;
+    const adjusted_interest_rate_months = interest_rate / months_in_year;
+
+    const payments = borrowed_sum * (adjusted_interest_rate_months / (1 - Math.pow(1 + adjusted_interest_rate_months, -adjusted_loan_period_months)));
+
+    return payments.toFixed(2);
+  };
 
   const calculateMonthlyPayment = () => {
     const principal = parseFloat(loanAmount);
-    const monthlyInterestRate = parseFloat(interestRate) / 100 / 12;
+    const deposit = parseFloat(initialDeposit);
+    const monthlyInterestRate = deposit >= principal * 0.5 ? 0.04 : 0.08; // 4% if deposit is >= 50% of loan amount, else 8%
     const numberOfPayments = parseFloat(loanTerm) * 12;
 
-    const numerator = principal * monthlyInterestRate * (Math.pow(1 + monthlyInterestRate, numberOfPayments));
-    const denominator = Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1;
-
-    const monthlyPaymentValue = (numerator / denominator).toFixed(2);
+    const monthlyPaymentValue = amortize(principal, monthlyInterestRate, parseFloat(loanTerm));
 
     setMonthlyPayment(monthlyPaymentValue);
+    setLoanInterest(monthlyInterestRate);
   };
-
-  const interestRates = [10, 20, 30, 40, 50, 60];
 
   return (
     <Box flex={4} padding="0 20px">
@@ -45,6 +52,15 @@ const Mortgage = () => {
           </Typography>
 
           <Stack spacing={2}>
+
+          <InputLabel>Down Payment</InputLabel>
+            <input
+              type="number"
+              value={initialDeposit}
+              onChange={(e) => setInitialDeposit(e.target.value)}
+              style={{ borderRadius: "10px", padding: "8px", width: "100%" }}
+            />
+
             <InputLabel>Loan Amount</InputLabel>
             <input
               type="number"
@@ -53,18 +69,13 @@ const Mortgage = () => {
               style={{ borderRadius: "10px", padding: "8px", width: "100%" }}
             />
 
-            <InputLabel>Interest Rate (%)</InputLabel>
-            <Select
-              value={interestRate}
-              onChange={(e) => setInterestRate(e.target.value)}
-              style={{ borderRadius: "10px", padding: "0px", width: "100%" }}
-            >
-              {interestRates.map((rate) => (
-                <MenuItem key={rate} value={rate}>
-                  {rate}%
-                </MenuItem>
-              ))}
-            </Select>
+            <InputLabel>Loan Interest Rate (%)</InputLabel>
+            <input
+              type="text"
+              value={`${(loanInterest * 100).toFixed(2)}%`}
+              readOnly
+              style={{ borderRadius: "10px", padding: "8px", width: "100%" }}
+            />
 
             <InputLabel>Loan Term (years)</InputLabel>
             <input
@@ -94,8 +105,8 @@ const Mortgage = () => {
 
             {monthlyPayment !== null && (
               <div>
-                <Typography variant="h6">Monthly Payment:</Typography>
-                <Typography>₦ {monthlyPayment}</Typography>
+                <Typography variant="h5">Monthly Payment:</Typography>
+                <Typography variant="h5">₦ {monthlyPayment}</Typography>
               </div>
             )}
           </Stack>
