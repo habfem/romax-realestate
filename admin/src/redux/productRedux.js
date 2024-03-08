@@ -46,11 +46,36 @@ export const createProducts = createAsyncThunk(
       formData.append("car", productData.car);
       formData.append("isFeatured", productData.isFeatured);
       formData.append("inStock", productData.inStock);
+      formData.append("broadband", productData.broadband)
+      formData.append("parlourDesc", productData.parlourDesc)
+      formData.append("parlourDimension", productData.parlourDimension)
+      formData.append("kitchenDesc", formData.kitchenDesc)
+      formData.append("kitchenDimension", formData.kitchenDimension)
+      formData.append("energyEfficiency", formData.energyEfficiency)
 
       productData.features.forEach((feature, index) => {
         formData.append(`features[${index}]`, feature);
       });
+      productData.rooms.forEach((room, index) => {
+        formData.append(`rooms[${index}][title]`, room.title);
+        formData.append(`rooms[${index}][description]`, room.description);
+        formData.append(`rooms[${index}][dimensions]`, room.dimensions);
+      });
+
+      productData.otherSpace.forEach((otherSpac, index) => {
+        formData.append(`otherSpace[${index}][title]`, otherSpac.title);
+        formData.append(`otherSpace[${index}][description]`, otherSpac.description);
+        formData.append(`otherSpace[${index}][dimensions]`, otherSpac.dimensions);
+      });
+
+      productData.OutsideSpace.forEach((OutsideSpac, index) => {
+        formData.append(`OutsideSpace[${index}][title]`, OutsideSpac.title);
+        formData.append(`OutsideSpace[${index}][description]`, OutsideSpac.description);
+        formData.append(`OutsideSpace[${index}][dimensions]`, OutsideSpac.dimensions);
+      });
+
       formData.append("category", productData.category);
+
       productData.images.forEach((image) => {
         formData.append(`images`, image);
       });
@@ -80,8 +105,31 @@ export const updateProduct = createAsyncThunk(
       formData.append("car", productData.car);
       formData.append("isFeatured", productData.isFeatured);
       formData.append("inStock", productData.inStock);
+      formData.append("broadband", productData.broadband);
+      formData.append("parlourDesc", productData.parlourDesc);
+      formData.append("parlourDimension", productData.parlourDimension);
+      formData.append("kitchenDesc", formData.kitchenDesc);
+      formData.append("kitchenDimension", formData.kitchenDimension);
+      formData.append("energyEfficiency", formData.energyEfficiency);
       productData.features.forEach((feature, index) => {
         formData.append(`features[${index}]`, feature);
+      });
+      productData.rooms.forEach((room, index) => {
+        formData.append(`rooms[${index}][title]`, room.title);
+        formData.append(`rooms[${index}][description]`, room.description);
+        formData.append(`rooms[${index}][dimensions]`, room.dimensions);
+      });
+
+      productData.otherSpace.forEach((otherSpac, index) => {
+        formData.append(`otherSpace[${index}][title]`, otherSpac.title);
+        formData.append(`otherSpace[${index}][description]`, otherSpac.description);
+        formData.append(`otherSpace[${index}][dimensions]`, otherSpac.dimensions);
+      });
+
+      productData.OutsideSpace.forEach((OutsideSpac, index) => {
+        formData.append(`OutsideSpace[${index}][title]`, OutsideSpac.title);
+        formData.append(`OutsideSpace[${index}][description]`, OutsideSpac.description);
+        formData.append(`OutsideSpace[${index}][dimensions]`, OutsideSpac.dimensions);
       });
       formData.append("category", productData.category);
       productData.images.forEach((image) => {

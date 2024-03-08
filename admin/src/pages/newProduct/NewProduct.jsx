@@ -106,6 +106,15 @@ export default function NewProduct() {
     bed: productData?.bed || "",
     bath: productData?.bath || "",
     category: productData?.category || "",
+    broadband: productData?.broadband || "",
+    parlourDesc: productData?.parlourDesc || "",
+    parlourDimension: productData?.parlourDimension || "",
+    kitchenDesc: productData?.kitchenDesc || "",
+    kitchenDimension: productData?.kitchenDimension || "",
+    energyEfficiency: productData?.energyEfficiency || "",
+    OutsideSpace: productData?.OutsideSpace || [],
+    otherSpace: productData?.otherSpace || [],
+    rooms: productData?.rooms || [],
     images: [],
     features: productData?.features || [],
     isFeatured: productData?.isFeatured || false,
@@ -335,11 +344,6 @@ export default function NewProduct() {
                     error={!!touched.brand && !!errors.brand}
                     helperText={touched.brand && errors.brand}
                     sx={{
-<<<<<<< HEAD
-                      width: isNonMobile ? "230px" : "100%",
-=======
-                      width: isNonMobile ? "250px" : "100%",
->>>>>>> 5c65ff5730875f690d0fb6bbbdf10fac35088ad3
                     }}
                     InputLabelProps={{
                       style: { fontSize: "15px" },
@@ -398,6 +402,114 @@ export default function NewProduct() {
                   name="inStock"
                   error={!!touched.inStock && !!errors.inStock}
                   helperText={touched.inStock && errors.inStock}
+                  sx={{
+                    width: isNonMobile ? "230px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Parlour Dimension"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.parlourDimension}
+                  name="parlourDimension"
+                  error={!!touched.parlourDimension && !!errors.parlourDimension}
+                  helperText={touched.parlourDimension && errors.parlourDimension}
+                  sx={{
+                    width: isNonMobile ? "230px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Parlour Desc"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.parlourDesc}
+                  name="parlourDesc"
+                  error={!!touched.parlourDesc && !!errors.parlourDesc}
+                  helperText={touched.parlourDesc && errors.parlourDesc}
+                  sx={{
+                    width: isNonMobile ? "480px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />{" "}
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Broadband"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.broadband}
+                  name="broadband"
+                  error={!!touched.broadband && !!errors.broadband}
+                  helperText={touched.broadband && errors.broadband}
+                  sx={{
+                    width: isNonMobile ? "230px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
+                 <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Kitchen Dimension"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.kitchenDimension}
+                  name="kitchenDimension"
+                  error={!!touched.kitchenDimension && !!errors.kitchenDimension}
+                  helperText={touched.kitchenDimension && errors.kitchenDimension}
+                  sx={{
+                    width: isNonMobile ? "230px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Kitchen Desc"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.kitchenDesc}
+                  name="kitchenDesc"
+                  error={!!touched.kitchenDesc && !!errors.kitchenDesc}
+                  helperText={touched.kitchenDesc && errors.kitchenDesc}
+                  sx={{
+                    width: isNonMobile ? "480px" : "100%",
+                  }}
+                  InputLabelProps={{
+                    style: { fontSize: "15px" },
+                  }}
+                />{" "}
+                <CustomTextField
+                  fullWidth
+                  variant="outlined"
+                  type="text"
+                  label="Energy Efficiency"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.energyEfficiency}
+                  name="energyEfficiency"
+                  error={!!touched.energyEfficiency && !!errors.energyEfficiency}
+                  helperText={touched.energyEfficiency && errors.energyEfficiency}
                   sx={{
                     width: isNonMobile ? "230px" : "100%",
                   }}
@@ -638,6 +750,316 @@ export default function NewProduct() {
                   </Box>
                 )}
               </FieldArray>
+
+              <FieldArray name="rooms">
+                {({ push, remove }) => (
+                <Box
+                  sx={{
+                  gridColumn: "span 4",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                  padding: "25px 20px",
+                  borderRadius: "10px",
+                  border: "1px solid #DAE1E7",
+                  }}
+                  >
+      <Typography variant="h5" textAlign="center">
+        Add Rooms
+      </Typography>
+      {values.rooms.map((room, index) => (
+        <Box
+          key={index}
+          sx={{
+            position: "relative",
+          }}
+        >
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Room ${index + 1} Title`}
+            name={`rooms[${index}].title`}
+            value={room.title}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.rooms && touched.rooms[index] && !!errors.rooms?.[index]?.title}
+            helperText={touched.rooms && touched.rooms[index] && errors.rooms?.[index]?.title}
+          />
+          <br /> <br />
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Room ${index + 1} Description`}
+            name={`rooms[${index}].description`}
+            value={room.description}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.rooms && touched.rooms[index] && !!errors.rooms?.[index]?.description}
+            helperText={touched.rooms && touched.rooms[index] && errors.rooms?.[index]?.description}
+          />
+          <br /> <br />
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Room ${index + 1} Dimensions`}
+            name={`rooms[${index}].dimensions`}
+            value={room.dimensions}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.rooms && touched.rooms[index] && !!errors.rooms?.[index]?.dimensions}
+            helperText={touched.rooms && touched.rooms[index] && errors.rooms?.[index]?.dimensions}
+          />
+          <IconButton
+            sx={{
+              position: "absolute",
+              right: "-11px",
+              top: "-14px",
+            }}
+            onClick={() => remove(index)}
+          >
+            <Close
+              style={{
+                fontSize: "15px",
+              }}
+            />
+          </IconButton>
+        </Box>
+      ))}
+
+      <Button
+        type="button"
+        sx={{
+          textTransform: "none",
+          bgcolor: "#4e97fd",
+          color: "white",
+          fontSize: "14px",
+          paddingX: "15px",
+          fontWeight: 400,
+          paddingY: "5px",
+          alignSelf: values.rooms.length > 0 ? "end" : "start",
+          borderRadius: "8px",
+          margin: values.rooms.length > 0 ? "0 0" : "0 auto",
+          "&:hover": {
+            backgroundColor: "#2756b6",
+          },
+        }}
+        onClick={() => push({ title: "", description: "", dimensions: "" })}
+      >
+        Add Room
+      </Button>
+    </Box>
+  )}
+              </FieldArray>
+
+              <FieldArray name="otherSpaces">
+  {({ push, remove }) => (
+    <Box
+      sx={{
+        gridColumn: "span 4",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        padding: "25px 20px",
+        borderRadius: "10px",
+        border: "1px solid #DAE1E7",
+      }}
+    >
+      <Typography variant="h5" textAlign="center">
+        Add Other Spaces
+      </Typography>
+      {values.otherSpace.map((otherSpac, index) => (
+        <Box
+          key={index}
+          sx={{
+            position: "relative",
+          }}
+        >
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Other Space ${index + 1} Title`}
+            name={`otherSpace[${index}].title`}
+            value={otherSpac.title}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.otherSpace && touched.otherSpace[index] && !!errors.otherSpace?.[index]?.title}
+            helperText={touched.otherSpace && touched.otherSpace[index] && errors.otherSpace?.[index]?.title}
+          />
+          <br /> <br />
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Other Space ${index + 1} Description`}
+            name={`otherSpace[${index}].description`}
+            value={otherSpac.description}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.otherSpace && touched.otherSpace[index] && !!errors.otherSpace?.[index]?.description}
+            helperText={touched.otherSpace && touched.otherSpace[index] && errors.otherSpace?.[index]?.description}
+          />
+          <br /> <br />
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Other Space ${index + 1} Dimensions`}
+            name={`otherSpace[${index}].dimensions`}
+            value={otherSpac.dimensions}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.otherSpace && touched.otherSpace[index] && !!errors.otherSpace?.[index]?.dimensions}
+            helperText={touched.otherSpace && touched.otherSpace[index] && errors.otherSpace?.[index]?.dimensions}
+          />
+          <IconButton
+            sx={{
+              position: "absolute",
+              right: "-11px",
+              top: "-14px",
+            }}
+            onClick={() => remove(index)}
+          >
+            <Close
+              style={{
+                fontSize: "15px",
+              }}
+            />
+          </IconButton>
+        </Box>
+      ))}
+
+      <Button
+        type="button"
+        sx={{
+          textTransform: "none",
+          bgcolor: "#4e97fd",
+          color: "white",
+          fontSize: "14px",
+          paddingX: "15px",
+          fontWeight: 400,
+          paddingY: "5px",
+          alignSelf: values.otherSpace.length > 0 ? "end" : "start",
+          borderRadius: "8px",
+          margin: values.otherSpace.length > 0 ? "0 0" : "0 auto",
+          "&:hover": {
+            backgroundColor: "#2756b6",
+          },
+        }}
+        onClick={() => push({ title: "", description: "", dimensions: "" })}
+      >
+        Add Other Space
+      </Button>
+    </Box>
+  )}
+</FieldArray>
+
+<FieldArray name="outsideSpaces">
+  {({ push, remove }) => (
+    <Box
+      sx={{
+        gridColumn: "span 4",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        padding: "25px 20px",
+        borderRadius: "10px",
+        border: "1px solid #DAE1E7",
+      }}
+    >
+      <Typography variant="h5" textAlign="center">
+        Add Outside Spaces
+      </Typography>
+      {values.OutsideSpace.map((OutsideSpac, index) => (
+        <Box
+          key={index}
+          sx={{
+            position: "relative",
+          }}
+        >
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Outside Space ${index + 1} Title`}
+            name={`OutsideSpace[${index}].title`}
+            value={OutsideSpac.title}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.OutsideSpace && touched.OutsideSpace[index] && !!errors.OutsideSpace?.[index]?.title}
+            helperText={touched.OutsideSpace && touched.OutsideSpace[index] && errors.OutsideSpace?.[index]?.title}
+          />
+          <br /> <br />
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Outside Space ${index + 1} Description`}
+            name={`OutsideSpace[${index}].description`}
+            value={OutsideSpac.description}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.OutsideSpace && touched.OutsideSpace[index] && !!errors.OutsideSpace?.[index]?.description}
+            helperText={touched.OutsideSpace && touched.OutsideSpace[index] && errors.OutsideSpace?.[index]?.description}
+          />
+          <br /> <br />
+          <CustomTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            label={`Outside Space ${index + 1} Dimensions`}
+            name={`OutsideSpace[${index}].dimensions`}
+            value={OutsideSpac.dimensions}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.OutsideSpace && touched.OutsideSpace[index] && !!errors.OutsideSpace?.[index]?.dimensions}
+            helperText={touched.OutsideSpace && touched.OutsideSpace[index] && errors.OutsideSpace?.[index]?.dimensions}
+          />
+          <IconButton
+            sx={{
+              position: "absolute",
+              right: "-11px",
+              top: "-14px",
+            }}
+            onClick={() => remove(index)}
+          >
+            <Close
+              style={{
+                fontSize: "15px",
+              }}
+            />
+          </IconButton>
+        </Box>
+      ))}
+
+      <Button
+        type="button"
+        sx={{
+          textTransform: "none",
+          bgcolor: "#4e97fd",
+          color: "white",
+          fontSize: "14px",
+          paddingX: "15px",
+          fontWeight: 400,
+          paddingY: "5px",
+          alignSelf: values.otherSpace.length > 0 ? "end" : "start",
+          borderRadius: "8px",
+          margin: values.otherSpace.length > 0 ? "0 0" : "0 auto",
+          "&:hover": {
+            backgroundColor: "#2756b6",
+          },
+        }}
+        onClick={() => push({ title: "", description: "", dimensions: "" })}
+      >
+        Add Outside Space
+      </Button>
+    </Box>
+  )}
+</FieldArray>
+
               <Box
                 mt="20px"
                 sx={{
@@ -749,4 +1171,6 @@ const productSchema = yup.object().shape({
   bed: yup.number().required("required"),
   car: yup.number().required("required"),
   price: yup.number().required("required"),
+  broadband: yup.string().required("required"),
+  energyEfficiency: yup.string().required("required"),
 });
