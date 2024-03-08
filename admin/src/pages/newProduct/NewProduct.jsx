@@ -854,7 +854,7 @@ export default function NewProduct() {
   )}
               </FieldArray>
 
-              <FieldArray name="otherSpaces">
+              <FieldArray name="otherSpace">
   {({ push, remove }) => (
     <Box
       sx={{
@@ -932,7 +932,7 @@ export default function NewProduct() {
         </Box>
       ))}
 
-      <Button
+<Button
         type="button"
         sx={{
           textTransform: "none",
@@ -957,7 +957,7 @@ export default function NewProduct() {
   )}
 </FieldArray>
 
-<FieldArray name="outsideSpaces">
+<FieldArray name="OutsideSpace">
   {({ push, remove }) => (
     <Box
       sx={{
