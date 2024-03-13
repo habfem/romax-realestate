@@ -248,7 +248,7 @@ const Product = () => {
                         }}
                       >🖨️</IconButton>
                     </Tooltip>
-                    <AlphabetArrows />
+                    {/*<AlphabetArrows />*/}
                   </Box>
                   <Stack>
                     <Typography variant="body2" mb={1}>
@@ -348,24 +348,26 @@ const Product = () => {
             <Tab product={product} />
             <br /> <br />
             <Grid container spacing={2}>
-            <Grid item xs={8.75}>
+            <Grid item xs={12} md={9}>
               <Map />
             </Grid>
             
-            <Grid item xs={3.25}> 
+            <Grid item xs={12} md={3}> 
             <Box
                     sx={{
                       backgroundSize: "cover",
                       backgroundRepeat: "no-repeat",
                       padding: "20px",
-                      height: "95%",
+                      height: "99%",
                       width: "100%",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
+                      textAlign: "center", 
                       boxShadow: "rgb(161, 161, 172) 0px 2px 6px",
                       borderRadius: "8px",
                     }}
+                    md={4}
                   >
               <TravelTime />
               </Box>

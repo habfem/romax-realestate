@@ -14,7 +14,7 @@ const Map = () => {
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', top: '20px', right: '20px', zIndex: '1', display: 'flex', gap: '10px' }}>
-        <button onClick={() => openInNewTab(streetViewURL)} style={buttonStyle}>
+        <button onClick={() => openInNewTab(streetViewURL)} sx={{bgcolor: "primary.main"}} style={buttonStyle}>
          <> Street View <LaunchIcon /></>
         </button>
         <button onClick={() => openInNewTab(satelliteViewURL)} style={buttonStyle}>

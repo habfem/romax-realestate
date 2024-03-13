@@ -128,6 +128,7 @@ const NavBarDrawer = () => {
             </Typography>
           </Link> */}
           <Link
+          to="/user/saved"
             style={{
               textDecoration: "none",
             }}
