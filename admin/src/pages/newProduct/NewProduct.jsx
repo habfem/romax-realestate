@@ -329,32 +329,6 @@ export default function NewProduct() {
                     style: { fontSize: "15px" },
                   }}
                 />
-                {/* <CustomTextField
-                    select
-                    label="Select Brand"
-                    fullWidth
-                    variant="outlined"
-                    onBlur={handleBlur}
-                    onChange={(event) => {
-                      const selectedCategoryId = event.target.value;
-                      setFieldValue("brand", selectedCategoryId);
-                    }}
-                    value={values.brand}
-                    name="brand"
-                    error={!!touched.brand && !!errors.brand}
-                    helperText={touched.brand && errors.brand}
-                    sx={{
-                    }}
-                    InputLabelProps={{
-                      style: { fontSize: "15px" },
-                    }}
-                  >
-                    {brands.map((option) => (
-                      <MenuItem key={option._id} value={option._id}>
-                        {option.name}
-                      </MenuItem>
-                    ))}
-                  </CustomTextField> */}
                 <CustomTextField
                   fullWidth
                   variant="outlined"
@@ -463,7 +437,15 @@ export default function NewProduct() {
                     style: { fontSize: "15px" },
                   }}
                 />
-                 <CustomTextField
+              </Box>
+              <Box
+              sx={{
+                  gridColumn: "span 4",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "20px",
+                }}>
+              <CustomTextField
                   fullWidth
                   variant="outlined"
                   type="text"
@@ -518,7 +500,6 @@ export default function NewProduct() {
                   }}
                 />
               </Box>
-
               <Box
                 sx={{
                   gridColumn: "span 4",
@@ -1172,5 +1153,4 @@ const productSchema = yup.object().shape({
   car: yup.number().required("required"),
   price: yup.number().required("required"),
   broadband: yup.string().required("required"),
-  energyEfficiency: yup.string().required("required"),
 });
