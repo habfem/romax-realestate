@@ -348,11 +348,11 @@ const Product = () => {
             <Tab product={product} />
             <br /> <br />
             <Grid container spacing={2}>
-            <Grid item xs={12} md={9}>
+            <Grid item xs={12} md={7.5}>
               <Map />
             </Grid>
             
-            <Grid item xs={12} md={3}> 
+            <Grid item xs={12} md={4.5}> 
             <Box
                     sx={{
                       backgroundSize: "cover",
