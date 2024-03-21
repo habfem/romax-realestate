@@ -38,7 +38,7 @@ const center = { lat: 48.8584, log: 2.2945 }
 
 function TravelTime() {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDojXsi-cWCzs3_DdQT_-TtOW7wkx1k3b8", // Replace with your API key
+    googleMapsApiKey: "xxxxxxxxxxxxxxxxxxxxxxxx", // Replace with your API key
     libraries: ["places"],
   });
 
