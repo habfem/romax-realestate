@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -43,10 +43,43 @@ const Card = (props) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
   const [toggle, setToggle] = useState(false);
+  const [mortgageEstimation, setMortgageEstimation] = useState(null);
   // const [showLoginModal, setShowLoginModal] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    const fetchMortgageData = async () => {
+      try {
+        const mortgageResponse = await userRequest.get("/mortgage");
+        const mortgageData = mortgageResponse.data[0];
+        if (mortgageData && price) {
+          const downPayment = mortgageData.downPayment;
+          const loanAmount = price - downPayment;
+          const interestRate = mortgageData.interest / 100;
+          const loanTerm = mortgageData.years;
+
+          const monthlyPayment = amortize(loanAmount, interestRate, loanTerm);
+          setMortgageEstimation(monthlyPayment);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMortgageData();
+  }, [price]);
+
+  const amortize = (borrowedSum, interestRate, loanPeriod) => {
+    const monthsInYear = 12;
+    const adjustedLoanPeriodMonths = loanPeriod * monthsInYear;
+    const adjustedInterestRateMonths = interestRate / monthsInYear;
+
+    const payments = borrowedSum * (adjustedInterestRateMonths / (1 - Math.pow(1 + adjustedInterestRateMonths, -adjustedLoanPeriodMonths)));
+
+    return payments.toFixed(2);
+  };
 
   const handleSavedProperty = async () => {
     if (!user) {
@@ -127,6 +160,9 @@ const Card = (props) => {
                   <Stack spacing={0.5} justifyContent="center" color="primary.main">
                     <Typography variant="h5">
                     {`₦ ${price?.toLocaleString()}`}
+                    </Typography>
+                    <Typography variant="h7" color="primary.main">
+                      Estimated Monthly Mortgage Payment: ₦ {mortgageEstimation?.toLocaleString()}
                     </Typography>
                     <Typography variant="subtitle2" letterSpacing={1.3}>
                       Offers Over

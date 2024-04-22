@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { statesInNigeria } from "./data";
+//import { statesInNigeria } from "./data";
 import { Link, useNavigate } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import Header from "./Header";
@@ -26,7 +26,7 @@ const Mortgage = ({ openDrawer }) => {
 
   const handleNewAddress = async (data) => {
     try {
-      const res = await userRequest.post(`/address`, data);
+      const res = await userRequest.post(`/mortgage`, data);
       navigate("/user/mortgages");
     } catch (error) {
       console.log(error);
@@ -35,7 +35,7 @@ const Mortgage = ({ openDrawer }) => {
 
   const handleUpdateAddress = async (data) => {
     try {
-      const res = await userRequest.put(`/address/${id}`, data);
+      const res = await userRequest.put(`/mortgage/${id}`, data);
       navigate("/user/mortgages");
     } catch (error) {
       console.log(error);
@@ -45,7 +45,7 @@ const Mortgage = ({ openDrawer }) => {
   useEffect(() => {
     const getAddress = async () => {
       try {
-        const res = await userRequest.get(`/address/${id}`);
+        const res = await userRequest.get(`/mortgage/${id}`);
         setAddress(res.data);
       } catch (error) {
         console.log(error);
@@ -57,18 +57,18 @@ const Mortgage = ({ openDrawer }) => {
   }, [id]);
 
   const initialValues = {
-    fullName: address?.fullName || "",
-    phone: address?.phone || "",
-    address: address?.address || "",
-    state: address?.state || "",
+    downPayment: address?.downPayment || "",
+    interest: address?.interest || "",
+    years: address?.years || "",
+    //state: address?.state || "",
   };
   return (
     <Stack spacing={2}>
       <Header
         Icon={PlaceIcon}
-        title={id === "new" ? "Add Address" : "Edit Address"}
+        title={id === "new" ? "Add Mortgage" : "Edit Mortgage"}
         openDrawer={openDrawer}
-        button="Back To Address"
+        button="Back To Mortgage"
         link={`/user/mortgages`}
       />
 
@@ -115,15 +115,15 @@ const Mortgage = ({ openDrawer }) => {
                 <TextField
                   fullWidth
                   variant="outlined"
-                  type="text"
-                  label="Enter Fullname"
+                  type="number"
+                  label="Enter downPayment"
                   size="small"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.fullName}
-                  name="fullName"
-                  error={!!touched.fullName && !!errors.fullName}
-                  helperText={touched.fullName && errors.fullName}
+                  value={values.downPayment}
+                  name="downPayment"
+                  error={!!touched.downPayment && !!errors.downPayment}
+                  helperText={touched.downPayment && errors.downPayment}
                   sx={{
                     gridColumn: "span 2",
                     "& .MuiInputBase-root": {
@@ -137,15 +137,15 @@ const Mortgage = ({ openDrawer }) => {
                 <TextField
                   fullWidth
                   variant="outlined"
-                  type="text"
-                  label="Enter Phone-Number"
+                  type="number"
+                  label="Enter Interest rate"
                   size="small"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.phone}
-                  name="phone"
-                  error={!!touched.phone && !!errors.phone}
-                  helperText={touched.phone && errors.phone}
+                  value={values.interest}
+                  name="interest"
+                  error={!!touched.interest && !!errors.interest}
+                  helperText={touched.interest && errors.interest}
                   sx={{
                     gridColumn: "span 2",
                     "& .MuiInputBase-root": {
@@ -159,15 +159,15 @@ const Mortgage = ({ openDrawer }) => {
                 <TextField
                   fullWidth
                   variant="outlined"
-                  type="text"
-                  label="Address"
+                  type="number"
+                  label="Enter Number of years"
                   size="small"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.address}
-                  name="address"
-                  error={!!touched.address && !!errors.address}
-                  helperText={touched.address && errors.address}
+                  value={values.years}
+                  name="years"
+                  error={!!touched.years && !!errors.years}
+                  helperText={touched.years && errors.years}
                   sx={{
                     gridColumn: "span 2",
                     "& .MuiInputBase-root": {
@@ -176,48 +176,6 @@ const Mortgage = ({ openDrawer }) => {
                   }}
                   InputLabelProps={{
                     style: { fontSize: "14px" },
-                  }}
-                />
-
-                <Autocomplete
-                  fullWidth
-                  options={statesInNigeria}
-                  value={values.state}
-                  isOptionEqualToValue={(option, value) => option === value}
-                  onChange={(event, newValue) => {
-                    handleChange({
-                      target: {
-                        name: "state",
-                        value: newValue,
-                      },
-                    });
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      fullWidth
-                      variant="outlined"
-                      type="text"
-                      label="State"
-                      size="small"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      name="state"
-                      error={!!touched.state && !!errors.state}
-                      helperText={touched.state && errors.state}
-                      InputLabelProps={{
-                        style: { fontSize: "14px" },
-                      }}
-                      sx={{
-                        gridColumn: "span 2",
-                        "& .MuiInputBase-root": {
-                          fontSize: "15px",
-                        },
-                      }}
-                    />
-                  )}
-                  sx={{
-                    gridColumn: "span 2",
                   }}
                 />
               </Box>
@@ -242,7 +200,7 @@ const Mortgage = ({ openDrawer }) => {
                   },
                 }}
               >
-                {id === "new" ? "Save Address" : "Save Changes"}
+                {id === "new" ? "Save Mortgage" : "Save Changes"}
               </Button>
             </form>
           )}
@@ -254,15 +212,9 @@ const Mortgage = ({ openDrawer }) => {
 
 export default Mortgage;
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const addressSchema = yup.object().shape({
-  fullName: yup.string().required("required"),
-  phone: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
-  address: yup.string().required("required"),
-  state: yup.string().required("required"),
+  downPayment: yup.string().required("required"),
+  interest: yup.string().required("required"),
+  years: yup.string().required("required"),
 });
