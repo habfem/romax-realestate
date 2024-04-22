@@ -9,17 +9,18 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import PlaceIcon from "@mui/icons-material/Place";
+import HouseSidingIcon from '@mui/icons-material/HouseSiding';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { userRequest } from "../../requestMethods";
 
-const Address = ({ _id, fullName, address, phone, state, setDeleteFlag, deleteFlag }) => {
+const Address = ({ _id, downPayment, years, interest, setDeleteFlag, deleteFlag }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const handleDeleteAddress = async () => {
     try {
-      await userRequest.delete(`/address/${_id}`);
+      await userRequest.delete(`/mortgage/${_id}`);
       setDeleteFlag(!deleteFlag)
     } catch (error) {
       console.log(error);
@@ -44,26 +45,23 @@ const Address = ({ _id, fullName, address, phone, state, setDeleteFlag, deleteFl
       }}
     >
       <Typography variant="subtitle2" flex={"1 1 0"} whiteSpace="pre">
-        {fullName}
+        {downPayment}
       </Typography>
 
       <Typography variant="subtitle2" flex="1 1 0" whiteSpace="pre">
-        {phone}
+        {interest}
       </Typography>
 
-      <Typography
-        variant="subtitle2"
-        flex={{ xs: "1 1 0", sm: "1 1 200px" }}
-        whiteSpace="pre"
-      >
-        {` ${address} ${state} State`}
+      <Typography variant="subtitle2" flex="1 1 0" whiteSpace="pre">
+        {years}
       </Typography>
+    
       {/* <Typography variant="subtitle2" flex="1 1 0">
         { ` ${state} State`}
       </Typography> */}
       <Stack direction="row" justifyContent="end">
         <Link
-          to={`/user/addresses/${_id}`}
+          to={`/user/mortgages/${_id}`}
           style={{
             textDecoration: "none",
           }}
@@ -88,7 +86,7 @@ const Mortgages = ({ openDrawer }) => {
   useEffect(() => {
     const getAddresses = async () => {
       try {
-        const res = await userRequest.get("/address");
+        const res = await userRequest.get("/mortgage");
         setAddresses(res.data);
       } catch (error) {
         console.log(error);
@@ -99,15 +97,15 @@ const Mortgages = ({ openDrawer }) => {
   return (
     <Stack spacing={2}>
       <Header
-        Icon={PlaceIcon}
-        title={"My Addresses"}
+        Icon={HouseSidingIcon}
+        title={"My Mortgage"}
         openDrawer={openDrawer}
-        button="Add New Address"
-        link={`/user/addresses/new`}
+        button="Add New Mortgage"
+        link={`/user/mortgages/new`}
       />
 
       { addresses.length === 0 ? <Box>
-         <Typography variant="h5" textAlign="center" mt={5}>No Address Found</Typography>
+         <Typography variant="h5" textAlign="center" mt={5}>No Mortgage Found</Typography>
       </Box> : <Stack spacing={2}>
         {addresses?.map((address, index) => (
           <Address {...address} setDeleteFlag={setDeleteFlag} deleteFlag={deleteFlag} key={index} />

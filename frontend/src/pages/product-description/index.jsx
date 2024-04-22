@@ -33,10 +33,10 @@ import { useSelector } from "react-redux";
 import Login from "../../pages/Login";
 import Map from "./Map";
 import Mortgage from "./Mortgage";
-import PreviewIcon from '@mui/icons-material/Preview';
+//import PreviewIcon from '@mui/icons-material/Preview';
 import TravelTime from "../../components/TravelTime";
 import Distance from "./Distance";
-import AlphabetArrows from "../../components/Alphabet";
+//import AlphabetArrows from "../../components/Alphabet";
 
 const Product = () => {
   const location = useLocation();
@@ -46,6 +46,8 @@ const Product = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
+  const [mortgageData, setMortgageData] = useState({});
+  const [mortgageEstimation, setMortgageEstimation] = useState(null);
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -73,18 +75,50 @@ const Product = () => {
   };
 
   useEffect(() => {
-    const getProduct = async () => {
+    const fetchData = async () => {
       try {
-        const res = await publicRequest.get(`/products/${id}`);
-        setViewCount(res.data.views);
-        setProduct(res.data);
+        // Fetch product data
+        const productResponse = await userRequest.get(`/products/${id}`);
+        setProduct(productResponse.data);
+
+        // Fetch mortgage data
+        const mortgageResponse = await userRequest.get("/mortgage");
+        setMortgageData(mortgageResponse.data[0]);
+        console.log(mortgageResponse.data[0]);
         setLoading(false);
       } catch (error) {
+        console.log(error);
         setLoading(false);
       }
     };
-    getProduct();
+
+    fetchData();
   }, [id]);
+
+  useEffect(() => {
+    // Calculate mortgage estimation when product and mortgage data are fetched
+    if (product.price && mortgageData.downPayment && mortgageData.interest) {
+      const downPayment = mortgageData.downPayment;
+      const loanAmount = product.price - downPayment;
+      const interestRate = mortgageData.interest/100;
+      const loanTerm = mortgageData.years;
+
+      // Calculate monthly mortgage payment using amortization formula
+      const monthlyPayment = amortize(loanAmount, interestRate, loanTerm);
+      setMortgageEstimation(monthlyPayment.toLocaleString());
+    }
+  }, [product, mortgageData]);
+
+  // Amortization function to calculate monthly payment
+  const amortize = (borrowedSum, interestRate, loanPeriod) => {
+    const monthsInYear = 12;
+    const adjustedLoanPeriodMonths = loanPeriod * monthsInYear;
+    const adjustedInterestRateMonths = interestRate / monthsInYear;
+
+    const payments = borrowedSum * (adjustedInterestRateMonths / (1 - Math.pow(1 + adjustedInterestRateMonths, -adjustedLoanPeriodMonths)));
+
+    return payments.toFixed(2);
+  };
 
   const handleIncrementView = async () => {
     try {
@@ -126,6 +160,9 @@ const Product = () => {
 
                   <Typography variant="h5" color="primary.main">
                     {`₦ ${product?.price?.toLocaleString()}`}
+                  </Typography>
+                  <Typography variant="h6" color="primary.main">
+                  Estimated Monthly Mortgage Payment: ₦ {mortgageEstimation}
                   </Typography>
 
                   <Stack direction="row" spacing={5}>

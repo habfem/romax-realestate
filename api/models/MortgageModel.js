@@ -19,4 +19,4 @@ const mortgageSchema = mongoose.Schema({
 
 const Mortgage = mongoose.model("Mortgage", mortgageSchema)
 
-export default Mortgage // Mortgage
+export default Mortgage
