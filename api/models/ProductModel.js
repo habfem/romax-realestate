@@ -26,6 +26,12 @@ const productSchema = new mongoose.Schema({
   address: {
     type: String,
   },
+  sataliteView: {
+    type: String,
+  },
+  streetView:{
+    type: String,
+  },
   location: {
     type: String,
   },
