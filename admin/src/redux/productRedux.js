@@ -52,6 +52,8 @@ export const createProducts = createAsyncThunk(
       formData.append("kitchenDesc", formData.kitchenDesc)
       formData.append("kitchenDimension", formData.kitchenDimension)
       formData.append("energyEfficiency", formData.energyEfficiency)
+      formData.append("sataliteView", formData.sataliteView)
+      formData.append("streetView", formData.streetView)
 
       productData.features.forEach((feature, index) => {
         formData.append(`features[${index}]`, feature);
@@ -111,6 +113,9 @@ export const updateProduct = createAsyncThunk(
       formData.append("kitchenDesc", formData.kitchenDesc);
       formData.append("kitchenDimension", formData.kitchenDimension);
       formData.append("energyEfficiency", formData.energyEfficiency);
+      formData.append("sataliteView", formData.sataliteView);
+      formData.append("streetView", formData.streetView);
+
       productData.features.forEach((feature, index) => {
         formData.append(`features[${index}]`, feature);
       });
