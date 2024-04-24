@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Box,
   //Button,
@@ -20,11 +20,14 @@ import {
 // Typography,
   Button,
   ButtonGroup,
+  Typography,
 // IconButton
 } from '@mui/material';
 //import { FaLocationArrow, FaTimes } from 'react-icons/fa'
 
 import ClearIcon from '@mui/icons-material/Clear';
+import { userRequest } from '../requestMethods';
+import { useLocation } from "react-router-dom";
 import NearMeIcon from '@mui/icons-material/NearMe';
 import {
   useJsApiLoader,
@@ -38,18 +41,34 @@ const center = { lat: 48.8584, log: 2.2945 }
 
 function TravelTime() {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // Replace with your API key
+    googleMapsApiKey: "AIzaSyBJZonCnd--SkMsOqKTk-JV23VJ1wCanMY", // Replace with your API key
     libraries: ["places"],
   });
-
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
   const [map, setMap] = useState(/** @type google.maps.Map */ (null))
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
+  const [product, setProduct] = useState('');
   const [travelMode, setTravelMode] = useState('DRIVING')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const productResponse = await userRequest.get(`/products/${id}`);
+        setProduct(productResponse.data); 
+        console.log(productResponse.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [id])
   
    /** @type React.MutableRefObject<HTMLInputElement> */
    const originRef = useRef()
+   //console.log(product.address)
    /** @type React.MutableRefObject<HTMLInputElement> */
    const destiantionRef = useRef()
     
@@ -78,7 +97,7 @@ function TravelTime() {
     setDirectionsResponse(null)
     setDistance('')
     setDuration('')
-    originRef.current.value = ''
+    originRef.current.value = product?.address
     destiantionRef.current.value = ''
   }
 
@@ -121,30 +140,33 @@ function TravelTime() {
         bg='rgba(255, 255, 255, 0.7)' 
       >
        <VStack spacing={4} alignItems='stretch'>
-          <HStack spacing={2} justifyContent='space-between'>
+        <Typography variant='h6'>Calculate travel time</Typography>
+          <HStack spacing={2} justifyContent='space-between' style={{ height: '40px', width: '275px' }}>
             <Autocomplete>
-              <Input type='text' placeholder='Origin' ref={originRef} />
+              <Input type='text' placeholder='Origin' value={product?.address} ref={originRef} style={{ height: '30px', width: '275px', borderRadius: '6px' }} />
             </Autocomplete>
+            </HStack>
+          <HStack spacing={2} justifyContent='space-between' style={{ height: '40px', width: '275px' }}>
             <Autocomplete>
-              <Input type='text' placeholder='Destination' ref={destiantionRef} />
+              <Input type='text' placeholder='Destination' ref={destiantionRef} style={{ height: '30px', width: '275px', borderRadius: '6px' }} />
             </Autocomplete>
           </HStack>
-          <Select>
+          <Select style={{ height: '30px', width: '275px', borderRadius: '6px' }}>
             <option value="driving">Driving</option>
             <option value="cycling">Cycling</option>
             <option value="walking">Walking</option>
           </Select>
-          <HStack spacing={2} justifyContent='center'>
-            <ButtonGroup>
-              <Button type='submit' onClick={calculateRoute}>
+          <HStack spacing={4} justifyContent='center' alignItems='center'>
+            <ButtonGroup >
+              <Button type='submit' onClick={calculateRoute} style={{ height: '30px' }}>
                 Calculate
               </Button>
-              <IconButton aria-label='center back' icon={<ClearIcon />} onClick={clearRoute} />
+              <IconButton aria-label='center back' icon={<ClearIcon />} onClick={clearRoute} style={{ height: '30px' }} />
             </ButtonGroup>
           </HStack>
           <HStack spacing={4} mt={4} justifyContent='space-between'>
-            <Text>Distance: {distance} </Text>
-            <Text>Duration: {duration} </Text>
+            <Typography style={{ fontSize: '12px' }}>Distance: {distance} </Typography>
+            <Typography style={{ fontSize: '12px' }}>Duration: {duration} </Typography>
             {/* <IconButton
               aria-label='center back'
               icon={<NearMeIcon />}
