@@ -97,6 +97,8 @@ export default function NewProduct() {
   const initialValues = {
     title: productData?.title || "",
     desc: productData?.desc || "",
+    sataliteView: productData?.sataliteView || "",
+    streetView: productData?.streetView || "",
     size: productData?.size || "",
     propertyType: productData?.propertyType || "",
     price: productData?.price || "",
@@ -647,6 +649,46 @@ export default function NewProduct() {
                 name="desc"
                 error={!!touched.desc && !!errors.desc}
                 helperText={touched.desc && errors.desc}
+                sx={{
+                  gridColumn: "span 4",
+                }}
+                InputLabelProps={{
+                  style: { fontSize: "15px" },
+                }}
+              />
+              <CustomTextField
+                fullWidth
+                variant="outlined"
+                type="text"
+                label="Satelite View"
+                multiline
+                rows={6}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.sataliteView}
+                name="sataliteView"
+                error={!!touched.sataliteView && !!errors.sataliteView}
+                helperText={touched.sataliteView && errors.sataliteView}
+                sx={{
+                  gridColumn: "span 4",
+                }}
+                InputLabelProps={{
+                  style: { fontSize: "15px" },
+                }}
+              />
+              <CustomTextField
+                fullWidth
+                variant="outlined"
+                type="text"
+                label="Street View"
+                multiline
+                rows={6}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.streetView}
+                name="streetView"
+                error={!!touched.streetView && !!errors.streetView}
+                helperText={touched.streetView && errors.streetView}
                 sx={{
                   gridColumn: "span 4",
                 }}
