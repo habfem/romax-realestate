@@ -29,6 +29,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { userRequest } from '../requestMethods';
 import { useLocation } from "react-router-dom";
 import NearMeIcon from '@mui/icons-material/NearMe';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import {
   useJsApiLoader,
   GoogleMap,
@@ -41,12 +43,13 @@ const center = { lat: 48.8584, log: 2.2945 }
 
 function TravelTime() {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "xxxxxxxxxxxxxxx", // Replace with your API key
+    googleMapsApiKey: "AIzaSyBJZonCnd--SkMsOqKTk-JV23VJ1wCanMY", // Replace with your API key
     libraries: ["places"],
   });
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [map, setMap] = useState(/** @type google.maps.Map */ (null))
+  const [isMinimized, setIsMinimized] = useState(false);
   const [directionsResponse, setDirectionsResponse] = useState(null)
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
@@ -101,6 +104,10 @@ function TravelTime() {
     destiantionRef.current.value = ''
   }
 
+  const toggleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
+
   return (
     <Flex
       position='relative'
@@ -137,7 +144,8 @@ function TravelTime() {
         shadow='base'
         minW='container.md'
         zIndex='1'
-        bg='rgba(255, 255, 255, 0.7)' 
+        bg='rgba(255, 255, 255, 0.7)'
+        display={isMinimized ? 'none' : 'block'} 
       >
        <VStack spacing={4} alignItems='stretch'>
         <Typography variant='h6'>Calculate travel time</Typography>
@@ -179,6 +187,9 @@ function TravelTime() {
           </HStack>
         </VStack>
       </Box>
+      <Button onClick={toggleMinimize}>
+        {isMinimized ? <CloseFullscreenIcon /> : <OpenInFullIcon />}
+      </Button>
     </Flex>
    );
 }

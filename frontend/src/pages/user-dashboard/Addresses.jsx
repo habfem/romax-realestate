@@ -27,7 +27,7 @@ const Address = ({ _id, fullName, address, phone, state, setDeleteFlag, deleteFl
   };
   return (
     <Paper
-      elevation={0}
+      elevation={1}
       sx={{
         paddingX: 2,
         paddingY: 1,
@@ -40,24 +40,34 @@ const Address = ({ _id, fullName, address, phone, state, setDeleteFlag, deleteFl
         flexWrap: "wrap",
         flexDirection: isNonMobile ? "row" : "column",
         columnGap: 1.5,
-        // justifyContent: "space-between"
+        // justifyContent: "space-between",
+        width: "calc(100% / 3)",
+        minWidth: "200px", 
       }}
     >
+       <Stack direction="column" spacing={1}>
       <Typography variant="subtitle2" flex={"1 1 0"} whiteSpace="pre">
-        {fullName}
+        Full Name: <strong>{fullName}</strong>
       </Typography>
 
       <Typography variant="subtitle2" flex="1 1 0" whiteSpace="pre">
-        {phone}
+        Phone Number: <strong>{phone}</strong>
       </Typography>
 
-      <Typography
+      <Typography variant="subtitle2" flex="1 1 0" whiteSpace="pre">
+        State: <strong>{state}</strong>
+      </Typography>
+
+      <Typography variant="subtitle2" flex="1 1 0" whiteSpace="pre">
+        Address: <strong>{address}</strong>
+      </Typography>
+      {/* <Typography
         variant="subtitle2"
         flex={{ xs: "1 1 0", sm: "1 1 200px" }}
         whiteSpace="pre"
       >
         {` ${address} ${state} State`}
-      </Typography>
+      </Typography> */}
       {/* <Typography variant="subtitle2" flex="1 1 0">
         { ` ${state} State`}
       </Typography> */}
@@ -76,6 +86,7 @@ const Address = ({ _id, fullName, address, phone, state, setDeleteFlag, deleteFl
         <IconButton onClick={handleDeleteAddress}>
           <DeleteIcon />
         </IconButton>
+      </Stack>
       </Stack>
     </Paper>
   );
@@ -108,7 +119,7 @@ const Addresses = ({ openDrawer }) => {
 
       { addresses.length === 0 ? <Box>
          <Typography variant="h5" textAlign="center" mt={5}>No Address Found</Typography>
-      </Box> : <Stack spacing={2}>
+      </Box> : <Stack spacing={2} direction="row" flexWrap="wrap">
         {addresses?.map((address, index) => (
           <Address {...address} setDeleteFlag={setDeleteFlag} deleteFlag={deleteFlag} key={index} />
         ))}
