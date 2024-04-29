@@ -14,6 +14,10 @@ const mortgageSchema = mongoose.Schema({
     },
     loan: {
         type: Number,
+    },
+    active: {
+        type: Boolean,
+        default: false
     }
 }, { ttimestamps: true });
 
