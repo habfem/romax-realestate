@@ -48,18 +48,27 @@ const Card = (props) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2)
+  }
 
   useEffect(() => {
     const fetchMortgageData = async () => {
       try {
         const mortgageResponse = await userRequest.get("/mortgage");
-        const mortgageData = mortgageResponse.data[0];
-        if (mortgageData && price) {
-          const downPayment = mortgageData.downPayment;
+        const activeMortgage = mortgageResponse.data.find(mortgage => mortgage.active);
+  
+        if (activeMortgage && price) {
+          const downPayment = activeMortgage.downPayment;
           const loanAmount = price - downPayment;
-          const interestRate = mortgageData.interest / 100;
-          const loanTerm = mortgageData.years;
-
+          const interestRate = activeMortgage.interest / 100;
+          const loanTerm = activeMortgage.years;
+  
           const monthlyPayment = amortize(loanAmount, interestRate, loanTerm);
           setMortgageEstimation(monthlyPayment);
         }
@@ -67,9 +76,10 @@ const Card = (props) => {
         console.log(error);
       }
     };
-
+  
     fetchMortgageData();
   }, [price]);
+  
 
   const amortize = (borrowedSum, interestRate, loanPeriod) => {
     const monthsInYear = 12;
@@ -158,15 +168,22 @@ const Card = (props) => {
                   }}
                 >
                   <Stack spacing={0.5} justifyContent="center" color="primary.main">
+                  <Stack spacing={0.5} direction="row" justifyContent="center" alignItems="center" color="primary.main">
                     <Typography variant="h5">
-                    {`₦ ${price?.toLocaleString()}`}
-                    </Typography>
-                    <Typography variant="h7" color="primary.main">
-                      Estimated Monthly Mortgage Payment: ₦ {mortgageEstimation?.toLocaleString()}
-                    </Typography>
+                      {`₦ ${price?.toLocaleString()}`}
+                   </Typography>
+                  <Typography variant="subtitle2" paddingLeft="50px" letterSpacing={1.1}>
+                    Monthly Mortgage: 
+                  </Typography>
+                </Stack>
+                <Stack spacing={0.5} direction="row" justifyContent="start" alignItems="start" color="primary.main">
                     <Typography variant="subtitle2" letterSpacing={1.3}>
-                      Offers Over
-                    </Typography>
+                    Offers Over
+                   </Typography>
+                  <Typography variant="subtitle2" paddingLeft="115px" letterSpacing={1.1}>
+                  ₦ {numberWithCommas(addDecimals(mortgageEstimation))} 
+                  </Typography>
+                </Stack>
                   </Stack>
                 </Box>
               ) : (
