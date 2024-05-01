@@ -47,7 +47,7 @@ const Product = () => {
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
   const [mortgageData, setMortgageData] = useState({});
-  const [mortgageEstimation, setMortgageEstimation] = useState(null);
+  //const [mortgageEstimation, setMortgageEstimation] = useState(null);
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -73,6 +73,14 @@ const Product = () => {
       console.log(error);
     }
   };
+  const handleIncrementView = async () => {
+    try {
+      await publicRequest.put(`/products/increment-views/${id}`);
+      setViewCount((prevCount) => prevCount + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,9 +90,10 @@ const Product = () => {
         setProduct(productResponse.data);
 
         // Fetch mortgage data
-        const mortgageResponse = await userRequest.get("/mortgage");
-        setMortgageData(mortgageResponse.data[0]);
-        console.log(mortgageResponse.data[0]);
+        //const mortgageResponse = await userRequest.get("/mortgage");
+        //setMortgageData(mortgageResponse.data[0]);
+        //console.log(mortgageResponse.data[0]);
+        handleIncrementView();
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -95,44 +104,30 @@ const Product = () => {
     fetchData();
   }, [id]);
 
-  useEffect(() => {
+  //useEffect(() => {
     // Calculate mortgage estimation when product and mortgage data are fetched
-    if (product.price && mortgageData.downPayment && mortgageData.interest) {
-      const downPayment = mortgageData.downPayment;
-      const loanAmount = product.price - downPayment;
-      const interestRate = mortgageData.interest/100;
-      const loanTerm = mortgageData.years;
+    //if (product.price && mortgageData.downPayment && mortgageData.interest) {
+    // const downPayment = mortgageData.downPayment;
+    //  const loanAmount = product.price - downPayment;
+    //  const interestRate = mortgageData.interest/100;
+    //  const loanTerm = mortgageData.years;
 
       // Calculate monthly mortgage payment using amortization formula
-      const monthlyPayment = amortize(loanAmount, interestRate, loanTerm);
-      setMortgageEstimation(monthlyPayment.toLocaleString());
-    }
-  }, [product, mortgageData]);
+    //  const monthlyPayment = amortize(loanAmount, interestRate, loanTerm);
+    //  setMortgageEstimation(monthlyPayment.toLocaleString());
+    //}
+  //}, [product, mortgageData]);
 
   // Amortization function to calculate monthly payment
-  const amortize = (borrowedSum, interestRate, loanPeriod) => {
-    const monthsInYear = 12;
-    const adjustedLoanPeriodMonths = loanPeriod * monthsInYear;
-    const adjustedInterestRateMonths = interestRate / monthsInYear;
+ // const amortize = (borrowedSum, interestRate, loanPeriod) => {
+  //  const monthsInYear = 12;
+  //  const adjustedLoanPeriodMonths = loanPeriod * monthsInYear;
+  //  const adjustedInterestRateMonths = interestRate / monthsInYear;
 
-    const payments = borrowedSum * (adjustedInterestRateMonths / (1 - Math.pow(1 + adjustedInterestRateMonths, -adjustedLoanPeriodMonths)));
+  //  const payments = borrowedSum * (adjustedInterestRateMonths / (1 - Math.pow(1 + adjustedInterestRateMonths, -adjustedLoanPeriodMonths)));
 
-    return payments.toFixed(2);
-  };
-
-  const handleIncrementView = async () => {
-    try {
-      await publicRequest.put(`/products/increment-views/${id}`);
-      setViewCount((prevCount) => prevCount + 1);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
-  useEffect(() => {
-    handleIncrementView();
-  }, []);
+  //  return payments.toFixed(2);
+ // };
 
   return (
     <Box>
@@ -161,10 +156,6 @@ const Product = () => {
                   <Typography variant="h5" color="primary.main">
                     {`₦ ${product?.price?.toLocaleString()}`}
                   </Typography>
-                  <Typography variant="h6" color="primary.main">
-                  Estimated Monthly Mortgage Payment: ₦ {mortgageEstimation}
-                  </Typography>
-
                   <Stack direction="row" spacing={5}>
                     <Stack spacing={0.3}>
                       <Stack spacing={2} direction="row">
