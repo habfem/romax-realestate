@@ -32,7 +32,7 @@ router.get("/user-bookings", verifyToken, async (req, res) => {
   }
 });
 
-router.get("/products", verifyTokenAndAdmin, async (req, res) => {
+router.get("/products", async (req, res) => {
   try {
     const bookings = await Booking.find({ "product.type": "Product" }).populate(
       "product.item"
@@ -43,7 +43,7 @@ router.get("/products", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-router.get("/estates", verifyTokenAndAdmin, async (req, res) => {
+router.get("/estates", async (req, res) => {
   try {
     const bookings = await Booking.find({ "product.type": "Estate" }).populate(
       "product.item"
@@ -54,7 +54,7 @@ router.get("/estates", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id).populate(
       "product.item"
