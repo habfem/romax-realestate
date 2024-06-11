@@ -172,7 +172,7 @@ const Card = (props) => {
                     <Typography variant="h5">
                       {`₦ ${price?.toLocaleString()}`}
                    </Typography>
-                  <Typography variant="subtitle2" paddingLeft="50px" letterSpacing={1.1}>
+                  <Typography variant="subtitle2" paddingLeft="150px" letterSpacing={1.1}>
                     Monthly Mortgage: 
                   </Typography>
                 </Stack>
@@ -180,7 +180,7 @@ const Card = (props) => {
                     <Typography variant="subtitle2" letterSpacing={1.3}>
                     Offers Over
                    </Typography>
-                  <Typography variant="subtitle2" paddingLeft="115px" letterSpacing={1.1}>
+                  <Typography variant="subtitle2" paddingLeft="250px" letterSpacing={1.1}>
                   ₦ {numberWithCommas(addDecimals(mortgageEstimation))} 
                   </Typography>
                 </Stack>
@@ -205,14 +205,24 @@ const Card = (props) => {
                         flex: isNonMobile ? "0 0 70%" : "0 0 60%",
                       }}
                     >
+                      <Stack spacing={0.5} direction="row" justifyContent="start" alignItems="center">
                       <Typography variant="h5">
                       {`₦ ${price?.toLocaleString()}`}
-
                       </Typography>
+                      <Typography variant="subtitle2" paddingLeft="5px" letterSpacing={1.1}>
+                        Monthly Mortgage: 
+                      </Typography>
+                      </Stack>
+                    <Stack spacing={0.5} direction="row" justifyContent="start" alignItems="start">
                       <Typography variant="subtitle2" letterSpacing={1.3}>
-                        Offers Over
-                      </Typography>
+                    Offers Over
+                   </Typography>
+                  <Typography variant="subtitle2" paddingLeft="110px" letterSpacing={1.1}>
+                  ₦ {numberWithCommas(addDecimals(mortgageEstimation))} 
+                  </Typography>
+                  </Stack>
                     </Stack>
+                    
                     <Box
                       p={2}
                       sx={{
@@ -230,6 +240,7 @@ const Card = (props) => {
                           lineHeight: 1.3,
                         }}
                       >
+                        
                         PREMIUM LISTING
                       </Typography>
                     </Box>
