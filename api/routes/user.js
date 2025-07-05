@@ -9,7 +9,7 @@ import User from "../models/UserModel.js";
 const router = express.Router();
 
 //UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.put("/:id", async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
@@ -93,39 +93,49 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
 });
 
 router.put("/save-property/:id", verifyToken, async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params;
+  
   try {
+    // Validate property ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid property ID" });
+    }
 
     const user = await User.findById(req.user.id);
-    const alreadyadded = user.savedProperties.some((savedP) =>
-      savedP.equals(id)
-    );
-    if (alreadyadded) {
-      await User.findByIdAndUpdate(
-       user. _id,
-        {
-          $pull: { savedProperties: id },
-        },
-        {
-          new: true,
-        }
-      );
-     return res.json({message:"Property has been unsaved from your wishlist"});
-    } else {
-      await User.findByIdAndUpdate(
-        user._id,
-        {
-          $push: { savedProperties: id },
-        },
-        {
-          new: true,
-        }
-      );
-      return res.json({message:"Property has been saved to your wishlist"});
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    // Check if property is already saved
+    const propertyIndex = user.savedProperties.findIndex(savedP => 
+      savedP.toString() === id
+    );
+
+    let message;
+    if (propertyIndex !== -1) {
+      // Property exists - remove it
+      user.savedProperties.pull(id);
+      message = "Property has been unsaved from your wishlist";
+    } else {
+      // Property doesn't exist - add it
+      user.savedProperties.push(id);
+      message = "Property has been saved to your wishlist";
+    }
+
+    await user.save();
+    
+    return res.json({
+      message,
+      savedProperties: user.savedProperties,
+      isSaved: propertyIndex === -1
+    });
+
   } catch (err) {
-    console.log(err)
-    res.status(500).json(err);
+    console.error("Error in save-property:", err);
+    res.status(500).json({ 
+      message: "Failed to update saved properties",
+      error: err.message 
+    });
   }
 });
 
