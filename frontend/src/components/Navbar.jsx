@@ -128,7 +128,7 @@ const Navbar = () => {
               Our Timeline
             </Typography>
           </Link>
-          <Link
+          {/* <Link
             to="/blogs"
             style={{
               textDecoration: "none",
@@ -145,7 +145,7 @@ const Navbar = () => {
             >
               Our Blogs
             </Typography>
-          </Link>
+          </Link> */}
           {/* <Link
             style={{
               textDecoration: "none",
