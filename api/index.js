@@ -13,6 +13,7 @@ import mortgageRoute from "./routes/mortgage.js"
 import timelineRoute from "./routes/timeline.js"
 import FaqRoute from "./routes/FAQ.js"
 import categoryRoute from "./routes/category.js"
+import blogRoute from "./routes/blog.js"
 
 
 dotenv.config();
@@ -46,7 +47,7 @@ app.use("/api/mortgage", mortgageRoute);
 app.use("/api/timeline", timelineRoute);
 app.use("/api/faq", FaqRoute);
 app.use("/api/category", categoryRoute);
-
+app.use("/api/blog", blogRoute);
 
 
 const PORT = process.env.PORT || 5001;
